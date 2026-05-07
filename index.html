@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>CTO Dashboard</title>
 
 <style>
@@ -14,16 +14,17 @@
 }
 
 body{
-    background:#0a0a0a;
+    background:#0b0b0b;
+    height:100vh;
     display:flex;
     justify-content:center;
     align-items:center;
-    min-height:100vh;
     font-family:Arial, sans-serif;
     overflow:hidden;
 }
 
-/* MAIN CONTAINER */
+/* MAIN DASHBOARD */
+
 .dashboard{
     position:relative;
     width:90vw;
@@ -32,6 +33,7 @@ body{
 }
 
 /* PIE */
+
 .pie{
     width:100%;
     height:100%;
@@ -41,13 +43,13 @@ body{
     background:
     conic-gradient(
         #d4af37 0deg 45deg,
-        #b8860b 45deg 90deg,
-        #d4af37 90deg 135deg,
-        #b8860b 135deg 180deg,
-        #d4af37 180deg 225deg,
+        #c89b2b 45deg 90deg,
+        #b8860b 90deg 135deg,
+        #d4af37 135deg 180deg,
+        #c89b2b 180deg 225deg,
         #b8860b 225deg 270deg,
         #d4af37 270deg 315deg,
-        #b8860b 315deg 360deg
+        #c89b2b 315deg 360deg
     );
 
     box-shadow:
@@ -55,16 +57,49 @@ body{
     inset 0 0 40px rgba(0,0,0,0.8);
 }
 
-/* PIE LINES */
+/* CENTER */
+
+.center{
+    position:absolute;
+    width:42%;
+    height:42%;
+    border-radius:50%;
+    background:#111;
+    border:5px solid gold;
+
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+
+    z-index:50;
+
+    box-shadow:
+    0 0 25px rgba(255,215,0,0.4),
+    inset 0 0 15px rgba(255,215,0,0.2);
+}
+
+.center h1{
+    color:gold;
+    font-size:1.5rem;
+    line-height:1.5;
+}
+
+/* DIVIDER LINES */
+
 .line{
     position:absolute;
-    width:4px;
+    width:3px;
     height:50%;
     background:#111;
     top:0;
     left:50%;
     transform-origin:bottom center;
-    z-index:2;
+    z-index:5;
 }
 
 .l1{ transform:translateX(-50%) rotate(0deg); }
@@ -76,70 +111,46 @@ body{
 .l7{ transform:translateX(-50%) rotate(270deg); }
 .l8{ transform:translateX(-50%) rotate(315deg); }
 
-/* CENTER CIRCLE */
-.center{
-    position:absolute;
-    width:42%;
-    height:42%;
-    background:#111;
-    border:5px solid gold;
-    border-radius:50%;
-    top:50%;
-    left:50%;
-    transform:translate(-50%,-50%);
-    z-index:5;
+/* PIE SLICE BUTTONS */
 
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    text-align:center;
-    padding:20px;
-
-    box-shadow:
-    0 0 25px rgba(255,215,0,0.4),
-    inset 0 0 20px rgba(255,215,0,0.2);
-}
-
-.center h1{
-    color:gold;
-    font-size:1.5rem;
-    line-height:1.4;
-}
-
-/* INTERACTIVE SLICES */
 .slice{
     position:absolute;
-    width:120px;
-    height:120px;
-    z-index:10;
+    width:22%;
+    height:22%;
+    z-index:20;
 
     display:flex;
     justify-content:center;
     align-items:center;
     text-align:center;
+
+    padding:10px;
 
     color:white;
     font-weight:bold;
-    font-size:0.82rem;
+    font-size:0.85rem;
     line-height:1.2;
 
     cursor:pointer;
     transition:0.3s ease;
-    border-radius:20px;
+
+    border-radius:50%;
 }
 
+/* REACTIVE EFFECT */
+
 .slice:hover{
-    transform:scale(1.1);
     background:rgba(255,215,0,0.95);
     color:black;
+    transform:scale(1.08);
     box-shadow:0 0 25px gold;
 }
 
-/* POSITION EACH TITLE INSIDE ITS SLICE */
+/* POSITIONS INSIDE PIE SHAPE */
 
 .s1{
-    top:10%;
-    left:37%;
+    top:6%;
+    left:39%;
 }
 
 .s2{
@@ -148,28 +159,28 @@ body{
 }
 
 .s3{
-    top:42%;
-    right:5%;
+    top:40%;
+    right:4%;
 }
 
 .s4{
     bottom:18%;
-    right:13%;
+    right:12%;
 }
 
 .s5{
-    bottom:8%;
-    left:37%;
+    bottom:4%;
+    left:39%;
 }
 
 .s6{
     bottom:18%;
-    left:13%;
+    left:12%;
 }
 
 .s7{
-    top:42%;
-    left:5%;
+    top:40%;
+    left:4%;
 }
 
 .s8{
@@ -178,11 +189,10 @@ body{
 }
 
 /* MOBILE */
+
 @media(max-width:600px){
 
     .slice{
-        width:90px;
-        height:90px;
         font-size:0.62rem;
     }
 
@@ -201,7 +211,7 @@ body{
     <!-- PIE -->
     <div class="pie"></div>
 
-    <!-- DIVIDER LINES -->
+    <!-- DIVIDERS -->
     <div class="line l1"></div>
     <div class="line l2"></div>
     <div class="line l3"></div>
@@ -221,22 +231,22 @@ body{
         </h1>
     </div>
 
-    <!-- 8 INTERACTIVE PIE SLICES -->
+    <!-- ALL TITLES INSIDE PIE SLICES -->
 
     <div class="slice s1" onclick="openPage('goals.html')">
-        Goals &<br>Targets
+        Goals & Targets
     </div>
 
     <div class="slice s2" onclick="openPage('policies.html')">
-        Policies &<br>Philosophies
+        Policies & Philosophies
     </div>
 
     <div class="slice s3" onclick="openPage('meeting.html')">
-        Meeting &<br>Schedule
+        Meeting & Schedule
     </div>
 
     <div class="slice s4" onclick="openPage('todo.html')">
-        Things<br>To Do
+        Things To Do
     </div>
 
     <div class="slice s5" onclick="openPage('budget.html')">
@@ -253,7 +263,8 @@ body{
     </div>
 
     <div class="slice s8" onclick="openPage('operations.html')">
-        Operations &<br>Future Plans
+        Operations &<br>
+        Future Plans
     </div>
 
 </div>
@@ -262,8 +273,8 @@ body{
 
 function openPage(page){
 
-    // LINK TO REAL PAGES LATER
-    alert("Opening " + page);
+    // Future page linking
+    alert("Opening: " + page);
 
     // Example:
     // window.location.href = page;
