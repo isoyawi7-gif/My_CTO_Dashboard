@@ -14,7 +14,7 @@
 }
 
 body{
-    background:#0b0b0b;
+    background:#0a0a0a;
     display:flex;
     justify-content:center;
     align-items:center;
@@ -23,16 +23,16 @@ body{
     overflow:hidden;
 }
 
-/* MAIN CIRCLE */
+/* MAIN CONTAINER */
 .dashboard{
     position:relative;
     width:90vw;
-    max-width:700px;
+    max-width:750px;
     aspect-ratio:1/1;
 }
 
-/* OUTER RING */
-.ring{
+/* PIE */
+.pie{
     width:100%;
     height:100%;
     border-radius:50%;
@@ -40,33 +40,54 @@ body{
 
     background:
     conic-gradient(
-        #c89b2b 0deg 45deg,
-        #d4af37 45deg 90deg,
-        #b8860b 90deg 135deg,
-        #d4af37 135deg 180deg,
-        #c89b2b 180deg 225deg,
-        #d4af37 225deg 270deg,
-        #b8860b 270deg 315deg,
-        #d4af37 315deg 360deg
+        #d4af37 0deg 45deg,
+        #b8860b 45deg 90deg,
+        #d4af37 90deg 135deg,
+        #b8860b 135deg 180deg,
+        #d4af37 180deg 225deg,
+        #b8860b 225deg 270deg,
+        #d4af37 270deg 315deg,
+        #b8860b 315deg 360deg
     );
 
     box-shadow:
-    0 0 40px rgba(255,215,0,0.25),
-    inset 0 0 30px rgba(0,0,0,0.8);
+    0 0 40px rgba(255,215,0,0.3),
+    inset 0 0 40px rgba(0,0,0,0.8);
 }
 
-/* INNER CENTER */
+/* PIE LINES */
+.line{
+    position:absolute;
+    width:4px;
+    height:50%;
+    background:#111;
+    top:0;
+    left:50%;
+    transform-origin:bottom center;
+    z-index:2;
+}
+
+.l1{ transform:translateX(-50%) rotate(0deg); }
+.l2{ transform:translateX(-50%) rotate(45deg); }
+.l3{ transform:translateX(-50%) rotate(90deg); }
+.l4{ transform:translateX(-50%) rotate(135deg); }
+.l5{ transform:translateX(-50%) rotate(180deg); }
+.l6{ transform:translateX(-50%) rotate(225deg); }
+.l7{ transform:translateX(-50%) rotate(270deg); }
+.l8{ transform:translateX(-50%) rotate(315deg); }
+
+/* CENTER CIRCLE */
 .center{
     position:absolute;
-    width:52%;
-    height:52%;
+    width:42%;
+    height:42%;
     background:#111;
     border:5px solid gold;
     border-radius:50%;
     top:50%;
     left:50%;
     transform:translate(-50%,-50%);
-    z-index:10;
+    z-index:5;
 
     display:flex;
     justify-content:center;
@@ -75,46 +96,50 @@ body{
     padding:20px;
 
     box-shadow:
-    0 0 20px rgba(255,215,0,0.4),
-    inset 0 0 20px rgba(255,215,0,0.15);
+    0 0 25px rgba(255,215,0,0.4),
+    inset 0 0 20px rgba(255,215,0,0.2);
 }
 
 .center h1{
     color:gold;
     font-size:1.5rem;
-    line-height:1.5;
-    letter-spacing:1px;
+    line-height:1.4;
 }
 
-/* PIE SECTIONS */
+/* INTERACTIVE SLICES */
 .slice{
     position:absolute;
-    width:130px;
+    width:120px;
+    height:120px;
+    z-index:10;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
     text-align:center;
+
     color:white;
     font-weight:bold;
-    font-size:0.85rem;
+    font-size:0.82rem;
     line-height:1.2;
+
     cursor:pointer;
-    transition:0.3s;
-    z-index:20;
+    transition:0.3s ease;
+    border-radius:20px;
 }
 
 .slice:hover{
+    transform:scale(1.1);
+    background:rgba(255,215,0,0.95);
     color:black;
-    background:gold;
-    padding:10px;
-    border-radius:12px;
-    box-shadow:0 0 20px gold;
-    transform:scale(1.08);
+    box-shadow:0 0 25px gold;
 }
 
-/* POSITION INSIDE RING */
+/* POSITION EACH TITLE INSIDE ITS SLICE */
 
 .s1{
     top:10%;
-    left:38%;
-    transform:translateX(-50%);
+    left:37%;
 }
 
 .s2{
@@ -123,28 +148,27 @@ body{
 }
 
 .s3{
-    top:43%;
-    right:4%;
+    top:42%;
+    right:5%;
 }
 
 .s4{
     bottom:18%;
-    right:14%;
+    right:13%;
 }
 
 .s5{
     bottom:8%;
-    left:50%;
-    transform:translateX(-50%);
+    left:37%;
 }
 
 .s6{
     bottom:18%;
-    left:12%;
+    left:13%;
 }
 
 .s7{
-    top:43%;
+    top:42%;
     left:5%;
 }
 
@@ -158,6 +182,7 @@ body{
 
     .slice{
         width:90px;
+        height:90px;
         font-size:0.62rem;
     }
 
@@ -173,8 +198,18 @@ body{
 
 <div class="dashboard">
 
-    <!-- GOLD PIE -->
-    <div class="ring"></div>
+    <!-- PIE -->
+    <div class="pie"></div>
+
+    <!-- DIVIDER LINES -->
+    <div class="line l1"></div>
+    <div class="line l2"></div>
+    <div class="line l3"></div>
+    <div class="line l4"></div>
+    <div class="line l5"></div>
+    <div class="line l6"></div>
+    <div class="line l7"></div>
+    <div class="line l8"></div>
 
     <!-- CENTER -->
     <div class="center">
@@ -186,66 +221,52 @@ body{
         </h1>
     </div>
 
-    <!-- TEXT INSIDE PIE -->
+    <!-- 8 INTERACTIVE PIE SLICES -->
 
-    <div class="slice s1" onclick="goPage('Goals')">
-        GOALS<br>
-        TARGETS<br>
-        PLANS
+    <div class="slice s1" onclick="openPage('goals.html')">
+        Goals &<br>Targets
     </div>
 
-    <div class="slice s2" onclick="goPage('Policies')">
-        POLICIES<br>
-        &<br>
-        PHILOSOPHY
+    <div class="slice s2" onclick="openPage('policies.html')">
+        Policies &<br>Philosophies
     </div>
 
-    <div class="slice s3" onclick="goPage('Marketing')">
-        MARKETING<br>
-        SCHEDULE
+    <div class="slice s3" onclick="openPage('meeting.html')">
+        Meeting &<br>Schedule
     </div>
 
-    <div class="slice s4" onclick="goPage('Things')">
-        THINGS<br>
-        TO DO
+    <div class="slice s4" onclick="openPage('todo.html')">
+        Things<br>To Do
     </div>
 
-    <div class="slice s5" onclick="goPage('Budget')">
-        TECHNICAL<br>
-        BUDGET<br>
-        CAPEX/OPEX
+    <div class="slice s5" onclick="openPage('budget.html')">
+        Technical Budget<br>
+        (CAPEX/OPEX)
     </div>
 
-    <div class="slice s6" onclick="goPage('Technology')">
-        TECHNOLOGY
+    <div class="slice s6" onclick="openPage('technology.html')">
+        Technology
     </div>
 
-    <div class="slice s7" onclick="goPage('Projects')">
-        PROJECTS
+    <div class="slice s7" onclick="openPage('projects.html')">
+        Projects
     </div>
 
-    <div class="slice s8" onclick="goPage('Tasks')">
-        TASKS<br>
-        TODO
+    <div class="slice s8" onclick="openPage('operations.html')">
+        Operations &<br>Future Plans
     </div>
 
 </div>
 
 <script>
 
-function goPage(section){
+function openPage(page){
 
-    alert("Opening " + section);
+    // LINK TO REAL PAGES LATER
+    alert("Opening " + page);
 
-    /*
-    EXAMPLE PAGE LINKS:
-
-    if(section === "Projects"){
-        window.location.href = "projects.html";
-    }
-
-    */
-
+    // Example:
+    // window.location.href = page;
 }
 
 </script>
