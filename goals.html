@@ -75,14 +75,10 @@ body{
     height:90vh;
 
     overflow-y:auto;
-
-    box-shadow:0 0 30px rgba(0,0,0,0.3);
 }
 
 .sidebar h2{
-
     color:#00c6ff;
-
     margin-bottom:15px;
 }
 
@@ -106,24 +102,17 @@ body{
 }
 
 .goal-card:hover{
-
     transform:scale(1.02);
-
     background:rgba(255,255,255,0.15);
 }
 
 .goal-card h3{
-
     color:#00c6ff;
-
-    margin-bottom:6px;
 }
 
 .goal-card p{
-
-    color:#d4d4d4;
-
     font-size:0.85rem;
+    color:#d4d4d4;
 }
 
 /* CONTENT */
@@ -141,8 +130,6 @@ body{
     border-radius:20px;
 
     padding:25px;
-
-    box-shadow:0 0 40px rgba(0,0,0,0.3);
 }
 
 /* HEADER */
@@ -155,24 +142,18 @@ body{
 
     align-items:center;
 
-    flex-wrap:wrap;
-
-    gap:15px;
-
-    margin-bottom:25px;
+    margin-bottom:20px;
 }
 
 .header h1{
-
     font-size:2rem;
 }
 
 .header p{
-
     color:#d4d4d4;
 }
 
-/* BACK BUTTON */
+/* BUTTON */
 
 .back-btn{
 
@@ -189,13 +170,6 @@ body{
     font-weight:bold;
 
     cursor:pointer;
-
-    transition:0.3s;
-}
-
-.back-btn:hover{
-
-    transform:scale(1.05);
 }
 
 /* FORM */
@@ -210,16 +184,12 @@ body{
 }
 
 .input-group{
-
     display:flex;
-
     flex-direction:column;
 }
 
 .input-group label{
-
     margin-bottom:8px;
-
     color:#ddd;
 }
 
@@ -240,12 +210,9 @@ body{
     border:1px solid rgba(255,255,255,0.15);
 
     color:white;
-
-    font-size:1rem;
 }
 
 .full{
-
     grid-column:1 / -1;
 }
 
@@ -268,13 +235,6 @@ body{
     font-weight:bold;
 
     cursor:pointer;
-
-    transition:0.3s;
-}
-
-.save-btn:hover{
-
-    transform:scale(1.02);
 }
 
 /* VIEW */
@@ -293,10 +253,7 @@ body{
 }
 
 .view-card h2{
-
     color:#00c6ff;
-
-    margin-bottom:10px;
 }
 
 /* FOOTER */
@@ -314,8 +271,6 @@ body{
     background:rgba(255,255,255,0.05);
 
     border-radius:12px;
-
-    border:1px solid rgba(255,255,255,0.08);
 }
 
 /* MOBILE */
@@ -323,19 +278,15 @@ body{
 @media(max-width:1000px){
 
     .main-layout{
-
         flex-direction:column;
     }
 
     .sidebar{
-
         width:100%;
-
         height:auto;
     }
 
     .form-grid{
-
         grid-template-columns:1fr;
     }
 }
@@ -349,28 +300,26 @@ body{
 
 <script>
 
-/* ACCESS CONTROL */
+/* =========================
+   ACCESS CONTROL (FIXED)
+========================= */
 
 if(sessionStorage.getItem("auth") !== "true"){
 
     document.getElementById("app").innerHTML = `
-
-    <div class="error-box">
-
-        ACCESS DENIED<br><br>
-
-        Please login through dashboard.html
-
-    </div>
-
+        <div class="error-box">
+            ACCESS DENIED<br><br>
+            Please login through index.html
+        </div>
     `;
 }
 else{
-
     loadPage();
 }
 
-/* LOAD PAGE */
+/* =========================
+   LOAD PAGE
+========================= */
 
 function loadPage(){
 
@@ -393,18 +342,12 @@ document.getElementById("app").innerHTML = `
     <div class="header">
 
         <div>
-
-            <h1>CTO Strategic Goals & Planning</h1>
-
-            <p>Daily • Weekly • Monthly • Quarterly • Yearly Objectives</p>
-
+            <h1>CTO Goals & Planning</h1>
+            <p>Daily • Weekly • Monthly • Quarterly • Yearly</p>
         </div>
 
-        <button class="back-btn"
-        onclick="goBack()">
-
+        <button class="back-btn" onclick="goBack()">
             Back to Dashboard
-
         </button>
 
     </div>
@@ -414,80 +357,52 @@ document.getElementById("app").innerHTML = `
     <div class="form-grid">
 
         <div class="input-group">
-
-            <label>Goal Type</label>
-
+            <label>Type</label>
             <select id="type">
-
                 <option>Daily</option>
                 <option>Weekly</option>
                 <option>Monthly</option>
                 <option>Quarterly</option>
                 <option>Yearly</option>
-
             </select>
-
         </div>
 
         <div class="input-group">
-
             <label>Title</label>
-
-            <input type="text" id="title">
-
+            <input id="title" type="text">
         </div>
 
         <div class="input-group">
-
             <label>Target</label>
-
-            <input type="text" id="target">
-
+            <input id="target" type="text">
         </div>
 
         <div class="input-group">
-
             <label>Priority</label>
-
             <select id="priority">
-
                 <option>High</option>
                 <option>Medium</option>
                 <option>Low</option>
-
             </select>
-
         </div>
 
         <div class="input-group full">
-
-            <label>Objective Description</label>
-
+            <label>Description</label>
             <textarea id="desc"></textarea>
-
         </div>
 
         <div class="input-group full">
-
-            <button class="save-btn"
-            onclick="saveGoal()">
-
+            <button class="save-btn" onclick="saveGoal()">
                 SAVE GOAL
-
             </button>
-
         </div>
 
     </div>
 
     <!-- VIEW -->
-
     <div class="view-card">
-
         <h2>Goal Details</h2>
-
         <div id="view"></div>
-
     </div>
 
 </div>
@@ -495,9 +410,7 @@ document.getElementById("app").innerHTML = `
 </div>
 
 <footer class="footer">
-
 Powered by Iso Yawi
-
 </footer>
 
 `;
@@ -505,25 +418,20 @@ Powered by Iso Yawi
 loadData();
 }
 
-/* SAVE */
+/* =========================
+   SAVE GOAL
+========================= */
 
 function saveGoal(){
 
-let goals =
-JSON.parse(localStorage.getItem("ctoGoals")) || [];
+let goals = JSON.parse(localStorage.getItem("ctoGoals")) || [];
 
 let obj = {
-
 id:Date.now(),
-
 type:document.getElementById("type").value,
-
 title:document.getElementById("title").value,
-
 target:document.getElementById("target").value,
-
 priority:document.getElementById("priority").value,
-
 desc:document.getElementById("desc").value
 };
 
@@ -536,28 +444,23 @@ loadData();
 alert("Goal Saved");
 }
 
-/* LOAD */
+/* =========================
+   LOAD ARCHIVE
+========================= */
 
 function loadData(){
 
-let goals =
-JSON.parse(localStorage.getItem("ctoGoals")) || [];
+let goals = JSON.parse(localStorage.getItem("ctoGoals")) || [];
 
 let html = "";
 
 goals.reverse().forEach(g => {
 
 html += `
-
-<div class="goal-card"
-onclick="view('${g.id}')">
-
+<div class="goal-card" onclick="viewGoal(${g.id})">
 <h3>${g.title}</h3>
-
 <p>${g.type} | ${g.priority}</p>
-
 </div>
-
 `;
 });
 
@@ -565,12 +468,13 @@ document.getElementById("archive").innerHTML =
 html || "<p>No goals found</p>";
 }
 
-/* VIEW */
+/* =========================
+   VIEW GOAL
+========================= */
 
-function view(id){
+function viewGoal(id){
 
-let goals =
-JSON.parse(localStorage.getItem("ctoGoals")) || [];
+let goals = JSON.parse(localStorage.getItem("ctoGoals")) || [];
 
 let g = goals.find(x => x.id == id);
 
@@ -579,22 +483,19 @@ document.getElementById("view").innerHTML = `
 <h2>${g.title}</h2>
 
 <p><b>Type:</b> ${g.type}</p>
-
 <p><b>Target:</b> ${g.target}</p>
-
 <p><b>Priority:</b> ${g.priority}</p>
-
 <p>${g.desc}</p>
 
 `;
 }
 
-/* BACK */
+/* =========================
+   BACK
+========================= */
 
 function goBack(){
-
 window.location.href = "dashboard.html";
-
 }
 
 </script>
