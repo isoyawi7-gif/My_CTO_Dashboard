@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CTO Tasks & Operations</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,sans-serif;
+}
+
+body{
+
+    min-height:100vh;
+
+    background:
+    radial-gradient(circle at top,
+    #2d63c8 0%,
+    #0b1f4d 45%,
+    #020817 100%);
+
+    color:white;
+
+    padding:20px;
+}
+
+/* ACCESS DENIED */
+
+.error-box{
+
+    width:100%;
+    height:100vh;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    text-align:center;
+
+    color:#ffb3b3;
+
+    font-size:1.2rem;
+}
+
+/* MAIN */
+
+.main-layout{
+
+    display:flex;
+
+    gap:20px;
+}
+
+/* SIDEBAR */
+
+.sidebar{
+
+    width:320px;
+
+    background:rgba(255,255,255,0.08);
+
+    backdrop-filter:blur(18px);
+
+    border:1px solid rgba(255,255,255,0.15);
+
+    border-radius:20px;
+
+    padding:20px;
+
+    height:90vh;
+
+    overflow-y:auto;
+
+    box-shadow:
+    0 0 30px rgba(0,0,0,0.3);
+}
+
+.sidebar h2{
+
+    margin-bottom:15px;
+
+    color:#00c6ff;
+}
+
+/* TASK CARD */
+
+.task-card{
+
+    background:rgba(255,255,255,0.08);
+
+    border:1px solid rgba(255,255,255,0.1);
+
+    border-radius:14px;
+
+    padding:15px;
+
+    margin-bottom:15px;
+
+    cursor:pointer;
+
+    transition:0.3s;
+}
+
+.task-card:hover{
+
+    background:rgba(255,255,255,0.15);
+
+    transform:scale(1.02);
+}
+
+.task-card h3{
+
+    font-size:1rem;
+
+    margin-bottom:8px;
+
+    color:white;
+}
+
+.task-card p{
+
+    color:#d4d4d4;
+
+    font-size:0.85rem;
+}
+
+/* CONTENT */
+
+.content{
+
+    flex:1;
+
+    background:rgba(255,255,255,0.08);
+
+    backdrop-filter:blur(18px);
+
+    border:1px solid rgba(255,255,255,0.15);
+
+    border-radius:20px;
+
+    padding:25px;
+
+    box-shadow:
+    0 0 40px rgba(0,0,0,0.3);
+}
+
+/* HEADER */
+
+.header{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    flex-wrap:wrap;
+
+    gap:15px;
+
+    margin-bottom:30px;
+}
+
+.header h1{
+
+    font-size:2rem;
+}
+
+.header p{
+
+    color:#d4d4d4;
+}
+
+/* BUTTON */
+
+.back-btn{
+
+    padding:12px 20px;
+
+    border:none;
+
+    border-radius:12px;
+
+    background:linear-gradient(
+    135deg,
+    #00c6ff,
+    #0072ff);
+
+    color:white;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+    transition:0.3s;
+}
+
+.back-btn:hover{
+
+    transform:scale(1.05);
+}
+
+/* FORM */
+
+.form-grid{
+
+    display:grid;
+
+    grid-template-columns:1fr 1fr;
+
+    gap:20px;
+}
+
+.input-group{
+
+    display:flex;
+
+    flex-direction:column;
+}
+
+.input-group label{
+
+    margin-bottom:8px;
+
+    color:#ddd;
+}
+
+.input-group input,
+.input-group textarea,
+.input-group select{
+
+    padding:14px;
+
+    border:none;
+
+    outline:none;
+
+    border-radius:12px;
+
+    background:rgba(255,255,255,0.12);
+
+    border:1px solid rgba(255,255,255,0.15);
+
+    color:white;
+
+    font-size:1rem;
+}
+
+.input-group textarea{
+
+    min-height:120px;
+
+    resize:vertical;
+}
+
+.full-width{
+
+    grid-column:1 / -1;
+}
+
+/* SAVE BUTTON */
+
+.save-btn{
+
+    width:100%;
+
+    padding:15px;
+
+    border:none;
+
+    border-radius:12px;
+
+    background:linear-gradient(
+    135deg,
+    #00c853,
+    #009624);
+
+    color:white;
+
+    font-size:1rem;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+    transition:0.3s;
+}
+
+.save-btn:hover{
+
+    transform:scale(1.02);
+}
+
+/* TASK VIEW */
+
+.task-view{
+
+    margin-top:35px;
+}
+
+.view-card{
+
+    background:rgba(255,255,255,0.08);
+
+    border:1px solid rgba(255,255,255,0.1);
+
+    border-radius:16px;
+
+    padding:20px;
+
+    margin-top:15px;
+}
+
+.view-card h2{
+
+    color:#00c6ff;
+
+    margin-bottom:15px;
+}
+
+.view-card p{
+
+    margin-bottom:12px;
+
+    line-height:1.6;
+
+    color:#dcdcdc;
+}
+
+.view-card span{
+
+    color:white;
+
+    font-weight:bold;
+}
+
+/* STATUS */
+
+.completed{
+
+    color:#00ff88;
+    font-weight:bold;
+}
+
+.pending{
+
+    color:#ffcc00;
+    font-weight:bold;
+}
+
+/* FOOTER */
+
+.footer{
+
+    text-align:center;
+
+    margin-top:20px;
+
+    padding:15px;
+
+    color:#d4d4d4;
+
+    font-size:0.9rem;
+
+    background:rgba(255,255,255,0.05);
+
+    border:1px solid rgba(255,255,255,0.08);
+
+    border-radius:12px;
+
+    backdrop-filter:blur(10px);
+}
+
+/* MOBILE */
+
+@media(max-width:1000px){
+
+    .main-layout{
+
+        flex-direction:column;
+    }
+
+    .sidebar{
+
+        width:100%;
+
+        height:auto;
+    }
+
+    .form-grid{
+
+        grid-template-columns:1fr;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<div id="app"></div>
+
+<script>
+
+/* =========================
+   ACCESS CONTROL
+========================= */
+
+if(localStorage.getItem("loggedIn") !== "true"){
+
+    document.getElementById("app").innerHTML = `
+
+    <div class="error-box">
+
+        ACCESS DENIED<br><br>
+
+        Please login through dashboard.html
+
+    </div>
+
+    `;
+}
+else{
+
+    loadPage();
+}
+
+/* =========================
+   LOAD PAGE
+========================= */
+
+function loadPage(){
+
+    document.getElementById("app").innerHTML = `
+
+    <div>
+
+        <div class="main-layout">
+
+            <!-- SIDEBAR -->
+
+            <div class="sidebar">
+
+                <div id="taskArchive"></div>
+
+            </div>
+
+            <!-- CONTENT -->
+
+            <div class="content">
+
+                <div class="header">
+
+                    <div>
+
+                        <h1>CTO Tasks & Operations</h1>
+
+                        <p>
+                        Daily CTO Activities, Pending Tasks &
+                        Strategic Operations Tracker
+                        </p>
+
+                    </div>
+
+                    <button class="back-btn"
+                    onclick="goBack()">
+
+                        Back to Dashboard
+
+                    </button>
+
+                </div>
+
+                <!-- FORM -->
+
+                <div class="form-grid">
+
+                    <div class="input-group">
+
+                        <label>Task Title</label>
+
+                        <input type="text"
+                        id="taskTitle"
+                        placeholder="Enter task title">
+
+                    </div>
+
+                    <div class="input-group">
+
+                        <label>Task Date</label>
+
+                        <input type="date"
+                        id="taskDate">
+
+                    </div>
+
+                    <div class="input-group">
+
+                        <label>Priority Level</label>
+
+                        <select id="taskPriority">
+
+                            <option>High</option>
+                            <option>Medium</option>
+                            <option>Low</option>
+
+                        </select>
+
+                    </div>
+
+                    <div class="input-group">
+
+                        <label>Status</label>
+
+                        <select id="taskStatus">
+
+                            <option>Pending</option>
+                            <option>Completed</option>
+
+                        </select>
+
+                    </div>
+
+                    <div class="input-group full-width">
+
+                        <label>Task Description</label>
+
+                        <textarea id="taskDescription"
+                        placeholder="Describe the task or operation"></textarea>
+
+                    </div>
+
+                    <div class="input-group full-width">
+
+                        <button class="save-btn"
+                        onclick="saveTask()">
+
+                            SAVE TASK
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+                <!-- TASK VIEW -->
+
+                <div class="task-view">
+
+                    <h2>Task Details</h2>
+
+                    <div id="taskView"></div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <footer class="footer">
+
+            Powered by Iso Yawi
+
+        </footer>
+
+    </div>
+
+    `;
+
+    loadTasks();
+}
+
+/* =========================
+   SAVE TASK
+========================= */
+
+function saveTask(){
+
+    const title =
+    document.getElementById("taskTitle").value;
+
+    const date =
+    document.getElementById("taskDate").value;
+
+    const priority =
+    document.getElementById("taskPriority").value;
+
+    const status =
+    document.getElementById("taskStatus").value;
+
+    const description =
+    document.getElementById("taskDescription").value;
+
+    if(title === "" || date === ""){
+
+        alert("Please enter task title and date.");
+
+        return;
+    }
+
+    const task = {
+
+        id:Date.now(),
+
+        title,
+        date,
+        priority,
+        status,
+        description
+    };
+
+    let tasks =
+    JSON.parse(localStorage.getItem("ctoTasks")) || [];
+
+    tasks.push(task);
+
+    localStorage.setItem(
+        "ctoTasks",
+        JSON.stringify(tasks)
+    );
+
+    /* CLEAR FORM */
+
+    document.getElementById("taskTitle").value = "";
+    document.getElementById("taskDate").value = "";
+    document.getElementById("taskDescription").value = "";
+
+    loadTasks();
+
+    alert("Task Saved Successfully");
+}
+
+/* =========================
+   LOAD TASKS
+========================= */
+
+function loadTasks(){
+
+    let tasks =
+    JSON.parse(localStorage.getItem("ctoTasks")) || [];
+
+    let pendingHTML = "";
+    let completedHTML = "";
+
+    tasks.reverse().forEach(task => {
+
+        const card = `
+
+        <div class="task-card"
+        onclick="viewTask(${task.id})">
+
+            <h3>${task.title}</h3>
+
+            <p>${task.date}</p>
+
+        </div>
+
+        `;
+
+        if(task.status === "Pending"){
+
+            pendingHTML += card;
+        }
+        else{
+
+            completedHTML += card;
+        }
+
+    });
+
+    document.getElementById("taskArchive").innerHTML = `
+
+        <h2>Pending Tasks</h2>
+
+        ${pendingHTML || "<p>No pending tasks.</p>"}
+
+        <br>
+
+        <h2>Completed Tasks</h2>
+
+        ${completedHTML || "<p>No completed tasks.</p>"}
+
+    `;
+}
+
+/* =========================
+   VIEW TASK
+========================= */
+
+function viewTask(id){
+
+    let tasks =
+    JSON.parse(localStorage.getItem("ctoTasks")) || [];
+
+    let task =
+    tasks.find(t => t.id === id);
+
+    document.getElementById("taskView").innerHTML = `
+
+    <div class="view-card">
+
+        <h2>${task.title}</h2>
+
+        <p>
+            <span>Date:</span><br>
+            ${task.date}
+        </p>
+
+        <p>
+            <span>Priority:</span><br>
+            ${task.priority}
+        </p>
+
+        <p>
+            <span>Status:</span><br>
+
+            <span class="${
+                task.status === "Completed"
+                ? "completed"
+                : "pending"
+            }">
+
+                ${task.status}
+
+            </span>
+
+        </p>
+
+        <p>
+            <span>Description:</span><br>
+            ${task.description}
+        </p>
+
+    </div>
+
+    `;
+}
+
+/* =========================
+   BACK BUTTON
+========================= */
+
+function goBack(){
+
+    window.location.href = "dashboard.html";
+}
+
+</script>
+
+</body>
+</html>
