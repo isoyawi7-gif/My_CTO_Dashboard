@@ -162,12 +162,19 @@ body::before{
 
 <script>
 
+<script>
+
 function login(){
 
     const username = document.getElementById("username").value.trim();
     const password = document.getElementById("password").value.trim();
 
     if(username === "admin" && password === "admin"){
+
+        /* ✅ SET LOGIN SESSION */
+        localStorage.setItem("loggedIn", "true");
+
+        /* GO TO DASHBOARD */
         window.location.href = "dashboard.html";
     }
     else{
@@ -175,6 +182,8 @@ function login(){
         "Invalid Username or Password";
     }
 }
+
+</script>
 
 </script>
 
