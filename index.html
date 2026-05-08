@@ -1,6 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CTO Dashboard</title>
+
 <style>
 
-/* REMOVE SPINNING */
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    overflow:hidden;
+    font-family:Arial, sans-serif;
+    background:
+    radial-gradient(circle at top,
+    rgba(30,60,120,0.9),
+    #050816 70%);
+    position:relative;
+}
+
+/* STARS BACKGROUND */
+
+body::before{
+    content:"";
+    position:absolute;
+    width:100%;
+    height:100%;
+
+    background-image:
+    radial-gradient(white 1px, transparent 1px),
+    radial-gradient(white 1px, transparent 1px),
+    radial-gradient(rgba(255,255,255,0.7) 1px, transparent 1px);
+
+    background-size:
+    120px 120px,
+    180px 180px,
+    250px 250px;
+
+    background-position:
+    10px 20px,
+    80px 120px,
+    40px 60px;
+
+    opacity:0.7;
+    animation:twinkle 6s infinite alternate;
+}
+
+@keyframes twinkle{
+    from{
+        opacity:0.3;
+    }
+    to{
+        opacity:0.8;
+    }
+}
+
+/* MAIN DASHBOARD */
+
+.dashboard{
+    position:relative;
+    width:90vw;
+    max-width:780px;
+    aspect-ratio:1/1;
+    z-index:2;
+}
+
+/* SHAKE EFFECT */
+
+@keyframes shake{
+    0%{ transform:rotate(0deg); }
+    25%{ transform:rotate(1deg); }
+    50%{ transform:rotate(-1deg); }
+    75%{ transform:rotate(1deg); }
+    100%{ transform:rotate(0deg); }
+}
+
+.dashboard:hover .pie{
+    animation:shake 0.35s ease;
+}
+
+/* PIE */
+
 .pie{
     width:100%;
     height:100%;
@@ -21,33 +109,76 @@
 
     box-shadow:
     0 0 50px rgba(255,215,0,0.25),
-    inset 0 0 50px rgba(0,0,0,0.8);
-
-    transition:0.3s ease;
+    inset 0 0 50px rgba(0,0,0,0.85);
 }
 
-/* SHAKE EFFECT */
+/* CENTER */
 
-@keyframes shake{
-    0%{ transform:rotate(0deg); }
-    25%{ transform:rotate(1deg); }
-    50%{ transform:rotate(-1deg); }
-    75%{ transform:rotate(1deg); }
-    100%{ transform:rotate(0deg); }
+.center{
+    position:absolute;
+
+    width:38%;
+    height:38%;
+
+    border-radius:50%;
+
+    background:#071120;
+    border:5px solid gold;
+
+    top:50%;
+    left:50%;
+
+    transform:translate(-50%,-50%);
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+
+    z-index:50;
+
+    box-shadow:
+    0 0 30px rgba(255,215,0,0.5),
+    inset 0 0 20px rgba(255,215,0,0.2);
 }
 
-/* WHEN HOVERING */
-
-.dashboard:hover .pie{
-    animation:shake 0.35s ease;
+.center h1{
+    color:gold;
+    font-size:1.4rem;
+    line-height:1.4;
+    letter-spacing:1px;
 }
 
-/* SLICES */
+/* DIVIDER LINES */
+
+.line{
+    position:absolute;
+    width:3px;
+    height:50%;
+    background:#071120;
+    top:0;
+    left:50%;
+    transform-origin:bottom center;
+    z-index:5;
+}
+
+.l1{ transform:translateX(-50%) rotate(0deg); }
+.l2{ transform:translateX(-50%) rotate(45deg); }
+.l3{ transform:translateX(-50%) rotate(90deg); }
+.l4{ transform:translateX(-50%) rotate(135deg); }
+.l5{ transform:translateX(-50%) rotate(180deg); }
+.l6{ transform:translateX(-50%) rotate(225deg); }
+.l7{ transform:translateX(-50%) rotate(270deg); }
+.l8{ transform:translateX(-50%) rotate(315deg); }
+
+/* SLICE BUTTONS */
 
 .slice{
     position:absolute;
+
     width:18%;
     height:18%;
+
     z-index:20;
 
     display:flex;
@@ -63,12 +194,30 @@
     line-height:1.15;
 
     cursor:pointer;
-    transition:0.35s ease;
 
     border-radius:50%;
+
+    transition:0.35s ease;
+
+    backdrop-filter:blur(3px);
 }
 
-/* INSIDE PIE AREAS */
+/* HOVER EFFECT */
+
+.slice:hover{
+
+    background:rgba(255,215,0,0.95);
+
+    color:black;
+
+    transform:scale(1.15);
+
+    box-shadow:
+    0 0 30px gold,
+    0 0 60px rgba(255,215,0,0.5);
+}
+
+/* POSITIONED INSIDE EACH PIE AREA */
 
 .s1{
     top:11%;
@@ -110,16 +259,133 @@
     left:18%;
 }
 
-/* HOVER EFFECT */
+/* MOBILE */
 
-.slice:hover{
-    background:rgba(255,215,0,0.95);
-    color:black;
-    transform:scale(1.15);
+@media(max-width:700px){
 
-    box-shadow:
-    0 0 30px gold,
-    0 0 60px rgba(255,215,0,0.5);
+    .slice{
+        font-size:0.55rem;
+        width:20%;
+        height:20%;
+    }
+
+    .center h1{
+        font-size:1rem;
+    }
 }
 
 </style>
+</head>
+
+<body>
+
+<div class="dashboard">
+
+    <!-- PIE -->
+    <div class="pie"></div>
+
+    <!-- DIVIDER LINES -->
+    <div class="line l1"></div>
+    <div class="line l2"></div>
+    <div class="line l3"></div>
+    <div class="line l4"></div>
+    <div class="line l5"></div>
+    <div class="line l6"></div>
+    <div class="line l7"></div>
+    <div class="line l8"></div>
+
+    <!-- CENTER -->
+
+    <div class="center">
+
+        <h1>
+            CHIEF<br>
+            TECHNICAL<br>
+            OFFICER<br>
+            DASHBOARD
+        </h1>
+
+    </div>
+
+    <!-- PIE SECTIONS -->
+
+    <div class="slice s1"
+    onclick="openPage('philosophies.html')">
+
+        PHILOSOPHIES<br>
+        VISION & MISSION
+
+    </div>
+
+    <div class="slice s2"
+    onclick="openPage('meeting.html')">
+
+        MEETING &<br>
+        SCHEDULE
+
+    </div>
+
+    <div class="slice s3"
+    onclick="openPage('todo.html')">
+
+        THINGS<br>
+        TO DO
+
+    </div>
+
+    <div class="slice s4"
+    onclick="openPage('budget.html')">
+
+        TECHNICAL BUDGET<br>
+        CAPEX / OPEX
+
+    </div>
+
+    <div class="slice s5"
+    onclick="openPage('technical.html')">
+
+        TECHNICAL<br>
+        PROJECTS & OPERATIONS
+
+    </div>
+
+    <div class="slice s6"
+    onclick="openPage('warehouse.html')">
+
+        WAREHOUSE &<br>
+        LOGISTICS
+
+    </div>
+
+    <div class="slice s7"
+    onclick="openPage('future.html')">
+
+        FUTURE<br>
+        PLANS
+
+    </div>
+
+    <div class="slice s8"
+    onclick="openPage('goals.html')">
+
+        GOALS &<br>
+        TARGETS
+
+    </div>
+
+</div>
+
+<script>
+
+function openPage(page){
+
+    alert("Opening: " + page);
+
+    // Future page navigation
+    // window.location.href = page;
+}
+
+</script>
+
+</body>
+</html>
