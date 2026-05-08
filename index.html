@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CTO Pie Dashboard</title>
+<title>CTO Dashboard</title>
 
 <style>
 
@@ -19,13 +19,12 @@ body{
     justify-content:center;
     align-items:center;
     overflow:hidden;
-    font-family:Arial,sans-serif;
+    font-family:Arial, sans-serif;
 
     background:
     radial-gradient(circle at top,
-    #1c3d73 0%,
-    #071120 70%,
-    #020611 100%);
+    rgba(25,50,110,0.9),
+    #040814 70%);
 
     position:relative;
 }
@@ -40,16 +39,23 @@ body::before{
 
     background-image:
     radial-gradient(white 1px, transparent 1px),
-    radial-gradient(white 1px, transparent 1px);
+    radial-gradient(white 1px, transparent 1px),
+    radial-gradient(rgba(255,255,255,0.7) 1px, transparent 1px);
 
     background-size:
-    140px 140px,
-    220px 220px;
+    120px 120px,
+    180px 180px,
+    250px 250px;
 
-    opacity:0.5;
+    background-position:
+    10px 20px,
+    80px 120px,
+    40px 60px;
+
+    opacity:0.6;
 }
 
-/* PIE CONTAINER */
+/* DASHBOARD */
 
 .dashboard{
     position:relative;
@@ -60,29 +66,27 @@ body::before{
 /* PIE */
 
 .pie{
-
     width:100%;
     height:100%;
-
     border-radius:50%;
 
-    position:absolute;
+    position:relative;
 
     background:
     conic-gradient(
-        #00bcd4 0deg 45deg,
-        #ff9800 45deg 90deg,
-        #ff5722 90deg 135deg,
-        #e91e63 135deg 180deg,
-        #9c27b0 180deg 225deg,
-        #3f51b5 225deg 270deg,
-        #2196f3 270deg 315deg,
-        #4caf50 315deg 360deg
+        #d4af37 0deg 45deg,
+        #c89b2b 45deg 90deg,
+        #b8860b 90deg 135deg,
+        #d4af37 135deg 180deg,
+        #c89b2b 180deg 225deg,
+        #b8860b 225deg 270deg,
+        #d4af37 270deg 315deg,
+        #c89b2b 315deg 360deg
     );
 
     box-shadow:
-    0 0 40px rgba(0,0,0,0.4),
-    0 0 60px rgba(255,255,255,0.08);
+    0 0 50px rgba(255,215,0,0.2),
+    inset 0 0 50px rgba(0,0,0,0.8);
 
     transition:0.3s ease;
 }
@@ -90,7 +94,6 @@ body::before{
 /* SHAKE EFFECT */
 
 @keyframes shake{
-
     0%{transform:rotate(0deg);}
     25%{transform:rotate(1deg);}
     50%{transform:rotate(-1deg);}
@@ -102,27 +105,24 @@ body::before{
     animation:shake 0.35s ease;
 }
 
-/* CENTER */
+/* CENTER CIRCLE */
 
 .center{
-
     position:absolute;
 
-    width:220px;
-    height:220px;
+    width:230px;
+    height:230px;
 
     border-radius:50%;
 
     background:#071120;
 
-    border:6px solid white;
+    border:5px solid gold;
 
     top:50%;
     left:50%;
 
     transform:translate(-50%,-50%);
-
-    z-index:10;
 
     display:flex;
     justify-content:center;
@@ -130,25 +130,48 @@ body::before{
 
     text-align:center;
 
+    z-index:10;
+
     box-shadow:
-    0 0 25px rgba(255,255,255,0.2);
+    0 0 25px rgba(255,215,0,0.4),
+    inset 0 0 15px rgba(255,215,0,0.2);
 }
 
 .center h1{
-
-    color:white;
-    font-size:1.5rem;
-    line-height:1.4;
+    color:gold;
+    font-size:1.4rem;
+    line-height:1.5;
 }
 
-/* SLICE TEXT */
+/* DIVIDER LINES */
+
+.line{
+    position:absolute;
+    width:4px;
+    height:50%;
+    background:#071120;
+    top:0;
+    left:50%;
+    transform-origin:bottom center;
+    z-index:2;
+}
+
+.l1{ transform:translateX(-50%) rotate(0deg); }
+.l2{ transform:translateX(-50%) rotate(45deg); }
+.l3{ transform:translateX(-50%) rotate(90deg); }
+.l4{ transform:translateX(-50%) rotate(135deg); }
+.l5{ transform:translateX(-50%) rotate(180deg); }
+.l6{ transform:translateX(-50%) rotate(225deg); }
+.l7{ transform:translateX(-50%) rotate(270deg); }
+.l8{ transform:translateX(-50%) rotate(315deg); }
+
+/* PIE TEXT AREAS */
 
 .slice{
-
     position:absolute;
 
-    width:130px;
-    height:130px;
+    width:120px;
+    height:120px;
 
     display:flex;
     justify-content:center;
@@ -160,8 +183,7 @@ body::before{
     font-weight:bold;
 
     line-height:1.2;
-
-    padding:10px;
+    font-size:0.85rem;
 
     z-index:20;
 
@@ -169,71 +191,74 @@ body::before{
 
     transition:0.3s ease;
 
-    border-radius:50%;
+    border-radius:20px;
+
+    padding:8px;
 }
 
 /* HOVER */
 
 .slice:hover{
 
-    transform:scale(1.12);
+    background:rgba(255,215,0,0.95);
 
-    backdrop-filter:blur(5px);
+    color:black;
 
-    background:rgba(255,255,255,0.15);
+    transform:scale(1.08);
 
     box-shadow:
-    0 0 25px rgba(255,255,255,0.4);
+    0 0 25px gold,
+    0 0 50px rgba(255,215,0,0.4);
 }
 
-/* TEXT INSIDE PIE LIKE YOUR IMAGE */
+/* POSITIONED INSIDE PIE SHAPES */
 
 /* TOP */
 .s1{
-    top:55px;
-    left:285px;
+    top:70px;
+    left:290px;
 }
 
 /* TOP RIGHT */
 .s2{
     top:145px;
-    right:90px;
+    right:120px;
 }
 
 /* RIGHT */
 .s3{
-    top:285px;
-    right:30px;
+    top:290px;
+    right:55px;
 }
 
 /* BOTTOM RIGHT */
 .s4{
     bottom:145px;
-    right:90px;
+    right:120px;
 }
 
 /* BOTTOM */
 .s5{
-    bottom:55px;
-    left:285px;
+    bottom:70px;
+    left:290px;
 }
 
 /* BOTTOM LEFT */
 .s6{
     bottom:145px;
-    left:90px;
+    left:120px;
 }
 
 /* LEFT */
 .s7{
-    top:285px;
-    left:30px;
+    top:290px;
+    left:55px;
 }
 
 /* TOP LEFT */
 .s8{
     top:145px;
-    left:90px;
+    left:120px;
 }
 
 /* MOBILE */
@@ -246,8 +271,8 @@ body::before{
     }
 
     .center{
-        width:32%;
-        height:32%;
+        width:33%;
+        height:33%;
     }
 
     .center h1{
@@ -255,8 +280,8 @@ body::before{
     }
 
     .slice{
-        width:18%;
-        height:18%;
+        width:16%;
+        height:16%;
         font-size:0.52rem;
     }
 }
@@ -271,17 +296,29 @@ body::before{
     <!-- PIE -->
     <div class="pie"></div>
 
+    <!-- DIVIDER LINES -->
+    <div class="line l1"></div>
+    <div class="line l2"></div>
+    <div class="line l3"></div>
+    <div class="line l4"></div>
+    <div class="line l5"></div>
+    <div class="line l6"></div>
+    <div class="line l7"></div>
+    <div class="line l8"></div>
+
     <!-- CENTER -->
     <div class="center">
 
         <h1>
-            CTO<br>
+            CHIEF<br>
+            TECHNICAL<br>
+            OFFICER<br>
             DASHBOARD
         </h1>
 
     </div>
 
-    <!-- TEXT INSIDE PIE -->
+    <!-- PIE CONTENT INSIDE SHAPES -->
 
     <div class="slice s1"
     onclick="openPage('philosophies.html')">
@@ -310,16 +347,16 @@ body::before{
     <div class="slice s4"
     onclick="openPage('budget.html')">
 
-        TECHNICAL<br>
-        BUDGET
+        TECHNICAL BUDGET<br>
+        CAPEX / OPEX
 
     </div>
 
     <div class="slice s5"
     onclick="openPage('technical.html')">
 
-        PROJECTS &<br>
-        OPERATIONS
+        TECHNICAL<br>
+        PROJECTS & OPERATIONS
 
     </div>
 
@@ -355,6 +392,7 @@ function openPage(page){
 
     alert("Opening: " + page);
 
+    // Future:
     // window.location.href = page;
 }
 
