@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>CTO Budget Management</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,sans-serif;
+}
+
+body{
+
+    min-height:100vh;
+
+    background:
+    radial-gradient(circle at top,
+    #2d63c8 0%,
+    #0b1f4d 45%,
+    #020817 100%);
+
+    color:white;
+
+    padding:20px;
+}
+
+/* ACCESS DENIED */
+
+.error-box{
+
+    width:100%;
+    height:100vh;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    text-align:center;
+
+    color:#ffb3b3;
+
+    font-size:1.2rem;
+}
+
+/* MAIN LAYOUT */
+
+.main-layout{
+
+    display:flex;
+
+    gap:20px;
+}
+
+/* SIDEBAR */
+
+.sidebar{
+
+    width:320px;
+
+    background:rgba(255,255,255,0.08);
+
+    backdrop-filter:blur(18px);
+
+    border:1px solid rgba(255,255,255,0.15);
+
+    border-radius:20px;
+
+    padding:20px;
+
+    height:90vh;
+
+    overflow-y:auto;
+
+    box-shadow:
+    0 0 30px rgba(0,0,0,0.3);
+}
+
+.sidebar h2{
+
+    margin-bottom:15px;
+
+    color:#00c6ff;
+}
+
+/* BUDGET CARD */
+
+.budget-card{
+
+    background:rgba(255,255,255,0.08);
+
+    border:1px solid rgba(255,255,255,0.1);
+
+    border-radius:14px;
+
+    padding:15px;
+
+    margin-bottom:15px;
+
+    cursor:pointer;
+
+    transition:0.3s;
+}
+
+.budget-card:hover{
+
+    background:rgba(255,255,255,0.15);
+
+    transform:scale(1.02);
+}
+
+.budget-card h3{
+
+    color:#00c6ff;
+
+    margin-bottom:8px;
+}
+
+.budget-card p{
+
+    color:#d4d4d4;
+
+    font-size:0.9rem;
+}
+
+/* CONTENT */
+
+.content{
+
+    flex:1;
+
+    background:rgba(255,255,255,0.08);
+
+    backdrop-filter:blur(18px);
+
+    border:1px solid rgba(255,255,255,0.15);
+
+    border-radius:20px;
+
+    padding:25px;
+
+    box-shadow:
+    0 0 40px rgba(0,0,0,0.3);
+}
+
+/* HEADER */
+
+.header{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    flex-wrap:wrap;
+
+    gap:15px;
+
+    margin-bottom:30px;
+}
+
+.header h1{
+
+    font-size:2rem;
+}
+
+.header p{
+
+    color:#d4d4d4;
+}
+
+/* BUTTON */
+
+.back-btn{
+
+    padding:12px 20px;
+
+    border:none;
+
+    border-radius:12px;
+
+    background:linear-gradient(
+    135deg,
+    #00c6ff,
+    #0072ff);
+
+    color:white;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+    transition:0.3s;
+}
+
+.back-btn:hover{
+
+    transform:scale(1.05);
+}
+
+/* FORM */
+
+.form-grid{
+
+    display:grid;
+
+    grid-template-columns:1fr 1fr;
+
+    gap:20px;
+}
+
+.input-group{
+
+    display:flex;
+
+    flex-direction:column;
+}
+
+.input-group label{
+
+    margin-bottom:8px;
+
+    color:#ddd;
+}
+
+.input-group input,
+.input-group select,
+.input-group textarea{
+
+    padding:14px;
+
+    border:none;
+
+    outline:none;
+
+    border-radius:12px;
+
+    background:rgba(255,255,255,0.12);
+
+    border:1px solid rgba(255,255,255,0.15);
+
+    color:white;
+
+    font-size:1rem;
+}
+
+.input-group textarea{
+
+    min-height:120px;
+
+    resize:vertical;
+}
+
+.full-width{
+
+    grid-column:1 / -1;
+}
+
+/* SAVE BUTTON */
+
+.save-btn{
+
+    width:100%;
+
+    padding:15px;
+
+    border:none;
+
+    border-radius:12px;
+
+    background:linear-gradient(
+    135deg,
+    #00c853,
+    #009624);
+
+    color:white;
+
+    font-size:1rem;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+    transition:0.3s;
+}
+
+.save-btn:hover{
+
+    transform:scale(1.02);
+}
+
+/* VIEW */
+
+.view-area{
+
+    margin-top:35px;
+}
+
+.view-card{
+
+    background:rgba(255,255,255,0.08);
+
+    border:1px solid rgba(255,255,255,0.1);
+
+    border-radius:16px;
+
+    padding:20px;
+
+    margin-top:15px;
+}
+
+.view-card h2{
+
+    color:#00c6ff;
+
+    margin-bottom:15px;
+}
+
+.view-card p{
+
+    margin-bottom:12px;
+
+    color:#dcdcdc;
+
+    line-height:1.6;
+}
+
+.view-card span{
+
+    color:white;
+
+    font-weight:bold;
+}
+
+/* FOOTER */
+
+.footer{
+
+    text-align:center;
+
+    margin-top:20px;
+
+    padding:15px;
+
+    color:#d4d4d4;
+
+    font-size:0.9rem;
+
+    background:rgba(255,255,255,0.05);
+
+    border:1px solid rgba(255,255,255,0.08);
+
+    border-radius:12px;
+
+    backdrop-filter:blur(10px);
+}
+
+/* MOBILE */
+
+@media(max-width:1000px){
+
+    .main-layout{
+
+        flex-direction:column;
+    }
+
+    .sidebar{
+
+        width:100%;
+
+        height:auto;
+    }
+
+    .form-grid{
+
+        grid-template-columns:1fr;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<div id="app"></div>
+
+<script>
+
+/* ACCESS CONTROL */
+
+if(localStorage.getItem("loggedIn") !== "true"){
+
+    document.getElementById("app").innerHTML = `
+
+    <div class="error-box">
+
+        ACCESS DENIED<br><br>
+
+        Please login through dashboard.html
+
+    </div>
+
+    `;
+}
+else{
+
+    loadPage();
+}
+
+/* LOAD PAGE */
+
+function loadPage(){
+
+    document.getElementById("app").innerHTML = `
+
+    <div>
+
+        <div class="main-layout">
+
+            <!-- SIDEBAR -->
+
+            <div class="sidebar">
+
+                <h2>Budget Archive</h2>
+
+                <div id="budgetArchive"></div>
+
+            </div>
+
+            <!-- CONTENT -->
+
+            <div class="content">
+
+                <div class="header">
+
+                    <div>
+
+                        <h1>CTO CAPEX & OPEX Management</h1>
+
+                        <p>
+                        Executive Technology Financial Planning Platform
+                        </p>
+
+                    </div>
+
+                    <button class="back-btn"
+                    onclick="goBack()">
+
+                        Back to Dashboard
+
+                    </button>
+
+                </div>
+
+                <!-- FORM -->
+
+                <div class="form-grid">
+
+                    <div class="input-group">
+
+                        <label>Budget Title</label>
+
+                        <input type="text"
+                        id="budgetTitle"
+                        placeholder="Enter budget title">
+
+                    </div>
+
+                    <div class="input-group">
+
+                        <label>Budget Type</label>
+
+                        <select id="budgetType">
+
+                            <option>CAPEX</option>
+                            <option>OPEX</option>
+
+                        </select>
+
+                    </div>
+
+                    <div class="input-group">
+
+                        <label>Department</label>
+
+                        <input type="text"
+                        id="department"
+                        placeholder="Technology Department">
+
+                    </div>
+
+                    <div class="input-group">
+
+                        <label>Budget Amount</label>
+
+                        <input type="number"
+                        id="amount"
+                        placeholder="Enter amount">
+
+                    </div>
+
+                    <div class="input-group">
+
+                        <label>Approval Status</label>
+
+                        <select id="approval">
+
+                            <option>Pending</option>
+                            <option>Approved</option>
+                            <option>Rejected</option>
+
+                        </select>
+
+                    </div>
+
+                    <div class="input-group">
+
+                        <label>Budget Date</label>
+
+                        <input type="date"
+                        id="budgetDate">
+
+                    </div>
+
+                    <div class="input-group full-width">
+
+                        <label>Executive Notes</label>
+
+                        <textarea id="notes"
+                        placeholder="Enter executive financial notes"></textarea>
+
+                    </div>
+
+                    <div class="input-group full-width">
+
+                        <button class="save-btn"
+                        onclick="saveBudget()">
+
+                            SAVE BUDGET RECORD
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+                <!-- VIEW -->
+
+                <div class="view-area">
+
+                    <h2>Budget Details</h2>
+
+                    <div id="budgetView"></div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <footer class="footer">
+
+            Powered by Iso Yawi
+
+        </footer>
+
+    </div>
+
+    `;
+
+    loadBudgets();
+}
+
+/* SAVE BUDGET */
+
+function saveBudget(){
+
+    const budget = {
+
+        id:Date.now(),
+
+        title:
+        document.getElementById("budgetTitle").value,
+
+        type:
+        document.getElementById("budgetType").value,
+
+        department:
+        document.getElementById("department").value,
+
+        amount:
+        document.getElementById("amount").value,
+
+        approval:
+        document.getElementById("approval").value,
+
+        date:
+        document.getElementById("budgetDate").value,
+
+        notes:
+        document.getElementById("notes").value
+    };
+
+    let budgets =
+    JSON.parse(localStorage.getItem("ctoBudgets")) || [];
+
+    budgets.push(budget);
+
+    localStorage.setItem(
+        "ctoBudgets",
+        JSON.stringify(budgets)
+    );
+
+    alert("Budget Saved Successfully");
+
+    loadBudgets();
+}
+
+/* LOAD BUDGETS */
+
+function loadBudgets(){
+
+    let budgets =
+    JSON.parse(localStorage.getItem("ctoBudgets")) || [];
+
+    let html = "";
+
+    budgets.reverse().forEach(budget => {
+
+        html += `
+
+        <div class="budget-card"
+        onclick="viewBudget(${budget.id})">
+
+            <h3>${budget.title}</h3>
+
+            <p>${budget.type}</p>
+
+            <p>K ${budget.amount}</p>
+
+        </div>
+
+        `;
+    });
+
+    document.getElementById("budgetArchive").innerHTML =
+    html || "<p>No budget records found.</p>";
+}
+
+/* VIEW BUDGET */
+
+function viewBudget(id){
+
+    let budgets =
+    JSON.parse(localStorage.getItem("ctoBudgets")) || [];
+
+    let budget =
+    budgets.find(b => b.id === id);
+
+    document.getElementById("budgetView").innerHTML = `
+
+    <div class="view-card">
+
+        <h2>${budget.title}</h2>
+
+        <p>
+            <span>Budget Type:</span><br>
+            ${budget.type}
+        </p>
+
+        <p>
+            <span>Department:</span><br>
+            ${budget.department}
+        </p>
+
+        <p>
+            <span>Budget Amount:</span><br>
+            K ${budget.amount}
+        </p>
+
+        <p>
+            <span>Approval Status:</span><br>
+            ${budget.approval}
+        </p>
+
+        <p>
+            <span>Budget Date:</span><br>
+            ${budget.date}
+        </p>
+
+        <p>
+            <span>Executive Notes:</span><br>
+            ${budget.notes}
+        </p>
+
+    </div>
+
+    `;
+}
+
+/* BACK BUTTON */
+
+function goBack(){
+
+    window.location.href = "dashboard.html";
+}
+
+</script>
+
+</body>
+</html>
