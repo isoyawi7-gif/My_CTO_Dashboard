@@ -82,7 +82,7 @@ body{
     margin-bottom:15px;
 }
 
-/* GOAL CARD */
+/* CARD */
 
 .goal-card{
 
@@ -304,12 +304,18 @@ body{
    ACCESS CONTROL (FIXED)
 ========================= */
 
-if(sessionStorage.getItem("auth") !== "true"){
+const accessFromDashboard =
+sessionStorage.getItem("entry") === "dashboard";
+
+const isAuthorized =
+sessionStorage.getItem("auth") === "true";
+
+if(!isAuthorized || !accessFromDashboard){
 
     document.getElementById("app").innerHTML = `
         <div class="error-box">
             ACCESS DENIED<br><br>
-            Please login through index.html
+            Please open this page through dashboard.
         </div>
     `;
 }
@@ -426,16 +432,16 @@ function saveGoal(){
 
 let goals = JSON.parse(localStorage.getItem("ctoGoals")) || [];
 
-let obj = {
+goals.push({
+
 id:Date.now(),
 type:document.getElementById("type").value,
 title:document.getElementById("title").value,
 target:document.getElementById("target").value,
 priority:document.getElementById("priority").value,
 desc:document.getElementById("desc").value
-};
 
-goals.push(obj);
+});
 
 localStorage.setItem("ctoGoals", JSON.stringify(goals));
 
@@ -445,7 +451,7 @@ alert("Goal Saved");
 }
 
 /* =========================
-   LOAD ARCHIVE
+   LOAD DATA
 ========================= */
 
 function loadData(){
@@ -469,7 +475,7 @@ html || "<p>No goals found</p>";
 }
 
 /* =========================
-   VIEW GOAL
+   VIEW
 ========================= */
 
 function viewGoal(id){
@@ -481,7 +487,6 @@ let g = goals.find(x => x.id == id);
 document.getElementById("view").innerHTML = `
 
 <h2>${g.title}</h2>
-
 <p><b>Type:</b> ${g.type}</p>
 <p><b>Target:</b> ${g.target}</p>
 <p><b>Priority:</b> ${g.priority}</p>
@@ -495,7 +500,10 @@ document.getElementById("view").innerHTML = `
 ========================= */
 
 function goBack(){
+
+sessionStorage.setItem("entry","dashboard");
 window.location.href = "dashboard.html";
+
 }
 
 </script>
