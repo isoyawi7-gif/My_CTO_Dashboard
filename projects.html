@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CTO Projects & Operations</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,sans-serif;
+}
+
+body{
+
+    min-height:100vh;
+
+    background:
+    radial-gradient(circle at top,
+    #2d63c8 0%,
+    #0b1f4d 45%,
+    #020817 100%);
+
+    color:white;
+
+    padding:20px;
+}
+
+/* ACCESS DENIED */
+
+.error-box{
+
+    width:100%;
+    height:100vh;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    text-align:center;
+
+    color:#ffb3b3;
+
+    font-size:1.2rem;
+}
+
+/* MAIN LAYOUT */
+
+.main-layout{
+
+    display:flex;
+
+    gap:20px;
+}
+
+/* SIDEBAR */
+
+.sidebar{
+
+    width:320px;
+
+    background:rgba(255,255,255,0.08);
+
+    backdrop-filter:blur(18px);
+
+    border:1px solid rgba(255,255,255,0.15);
+
+    border-radius:20px;
+
+    padding:20px;
+
+    height:90vh;
+
+    overflow-y:auto;
+
+    box-shadow:0 0 30px rgba(0,0,0,0.3);
+}
+
+.sidebar h2{
+
+    color:#00c6ff;
+
+    margin-bottom:15px;
+}
+
+/* CARD */
+
+.card{
+
+    background:rgba(255,255,255,0.08);
+
+    border:1px solid rgba(255,255,255,0.1);
+
+    border-radius:14px;
+
+    padding:15px;
+
+    margin-bottom:15px;
+
+    cursor:pointer;
+
+    transition:0.3s;
+}
+
+.card:hover{
+
+    transform:scale(1.02);
+
+    background:rgba(255,255,255,0.15);
+}
+
+.card h3{
+
+    color:#00c6ff;
+
+    margin-bottom:6px;
+}
+
+.card p{
+
+    font-size:0.85rem;
+
+    color:#d4d4d4;
+}
+
+/* CONTENT */
+
+.content{
+
+    flex:1;
+
+    background:rgba(255,255,255,0.08);
+
+    backdrop-filter:blur(18px);
+
+    border:1px solid rgba(255,255,255,0.15);
+
+    border-radius:20px;
+
+    padding:25px;
+
+    box-shadow:0 0 40px rgba(0,0,0,0.3);
+}
+
+/* HEADER */
+
+.header{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    flex-wrap:wrap;
+
+    gap:15px;
+
+    margin-bottom:25px;
+}
+
+.header h1{
+
+    font-size:2rem;
+}
+
+.header p{
+
+    color:#d4d4d4;
+}
+
+/* BACK BUTTON */
+
+.back-btn{
+
+    padding:12px 20px;
+
+    border:none;
+
+    border-radius:12px;
+
+    background:linear-gradient(135deg,#00c6ff,#0072ff);
+
+    color:white;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+    transition:0.3s;
+}
+
+.back-btn:hover{
+
+    transform:scale(1.05);
+}
+
+/* FORM */
+
+.form-grid{
+
+    display:grid;
+
+    grid-template-columns:1fr 1fr;
+
+    gap:20px;
+}
+
+.input-group{
+
+    display:flex;
+
+    flex-direction:column;
+}
+
+.input-group label{
+
+    margin-bottom:8px;
+
+    color:#ddd;
+}
+
+.input-group input,
+.input-group select,
+.input-group textarea{
+
+    padding:14px;
+
+    border:none;
+
+    outline:none;
+
+    border-radius:12px;
+
+    background:rgba(255,255,255,0.12);
+
+    border:1px solid rgba(255,255,255,0.15);
+
+    color:white;
+}
+
+.full{
+
+    grid-column:1 / -1;
+}
+
+/* SAVE */
+
+.save-btn{
+
+    width:100%;
+
+    padding:15px;
+
+    border:none;
+
+    border-radius:12px;
+
+    background:linear-gradient(135deg,#00c853,#009624);
+
+    color:white;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+    transition:0.3s;
+}
+
+.save-btn:hover{
+
+    transform:scale(1.02);
+}
+
+/* VIEW */
+
+.view-card{
+
+    margin-top:20px;
+
+    background:rgba(255,255,255,0.08);
+
+    border:1px solid rgba(255,255,255,0.1);
+
+    border-radius:15px;
+
+    padding:20px;
+}
+
+.view-card h2{
+
+    color:#00c6ff;
+
+    margin-bottom:10px;
+}
+
+/* FOOTER */
+
+.footer{
+
+    text-align:center;
+
+    margin-top:20px;
+
+    padding:15px;
+
+    color:#d4d4d4;
+
+    background:rgba(255,255,255,0.05);
+
+    border-radius:12px;
+
+    border:1px solid rgba(255,255,255,0.08);
+}
+
+/* MOBILE */
+
+@media(max-width:1000px){
+
+    .main-layout{
+
+        flex-direction:column;
+    }
+
+    .sidebar{
+
+        width:100%;
+
+        height:auto;
+    }
+
+    .form-grid{
+
+        grid-template-columns:1fr;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<div id="app"></div>
+
+<script>
+
+/* ACCESS CONTROL */
+
+if(localStorage.getItem("loggedIn") !== "true"){
+
+    document.getElementById("app").innerHTML = `
+
+    <div class="error-box">
+
+        ACCESS DENIED<br><br>
+
+        Please login through dashboard.html
+
+    </div>
+
+    `;
+}
+else{
+
+    loadPage();
+}
+
+/* LOAD PAGE */
+
+function loadPage(){
+
+document.getElementById("app").innerHTML = `
+
+<div class="main-layout">
+
+<!-- SIDEBAR -->
+<div class="sidebar">
+
+    <h2>Project Archive</h2>
+
+    <div id="archive"></div>
+
+</div>
+
+<!-- CONTENT -->
+<div class="content">
+
+    <div class="header">
+
+        <div>
+
+            <h1>Projects & Operations Hub</h1>
+
+            <p>Strategic Projects + Network Operations Planning</p>
+
+        </div>
+
+        <button class="back-btn"
+        onclick="goBack()">
+
+            Back to Dashboard
+
+        </button>
+
+    </div>
+
+    <!-- FORM -->
+
+    <div class="form-grid">
+
+        <div class="input-group">
+
+            <label>Type</label>
+
+            <select id="type">
+
+                <option>Project</option>
+                <option>Operation</option>
+
+            </select>
+
+        </div>
+
+        <div class="input-group">
+
+            <label>Title</label>
+
+            <input type="text" id="title">
+
+        </div>
+
+        <div class="input-group">
+
+            <label>Owner</label>
+
+            <input type="text" id="owner">
+
+        </div>
+
+        <div class="input-group">
+
+            <label>Status</label>
+
+            <select id="status">
+
+                <option>Planned</option>
+                <option>In Progress</option>
+                <option>Completed</option>
+
+            </select>
+
+        </div>
+
+        <div class="input-group full">
+
+            <label>Description</label>
+
+            <textarea id="desc"></textarea>
+
+        </div>
+
+        <div class="input-group full">
+
+            <button class="save-btn"
+            onclick="saveItem()">
+
+                SAVE
+
+            </button>
+
+        </div>
+
+    </div>
+
+    <div class="view-card">
+
+        <h2>Details</h2>
+
+        <div id="view"></div>
+
+    </div>
+
+</div>
+
+</div>
+
+<footer class="footer">
+
+Powered by Iso Yawi
+
+</footer>
+
+`;
+
+loadData();
+}
+
+/* SAVE */
+
+function saveItem(){
+
+let items =
+JSON.parse(localStorage.getItem("ctoProjectsOps")) || [];
+
+let obj = {
+
+id:Date.now(),
+
+type:document.getElementById("type").value,
+
+title:document.getElementById("title").value,
+
+owner:document.getElementById("owner").value,
+
+status:document.getElementById("status").value,
+
+desc:document.getElementById("desc").value
+};
+
+items.push(obj);
+
+localStorage.setItem("ctoProjectsOps", JSON.stringify(items));
+
+loadData();
+
+alert("Saved");
+}
+
+/* LOAD */
+
+function loadData(){
+
+let items =
+JSON.parse(localStorage.getItem("ctoProjectsOps")) || [];
+
+let html = "";
+
+items.reverse().forEach(i => {
+
+html += `
+<div class="card"
+onclick="view(${i.id})">
+
+<h3>${i.title}</h3>
+
+<p>${i.type} - ${i.status}</p>
+
+</div>
+`;
+});
+
+document.getElementById("archive").innerHTML =
+html || "<p>No records</p>";
+}
+
+/* VIEW */
+
+function view(id){
+
+let items =
+JSON.parse(localStorage.getItem("ctoProjectsOps")) || [];
+
+let i = items.find(x => x.id === id);
+
+document.getElementById("view").innerHTML = `
+
+<h3>${i.title}</h3>
+<p><b>Type:</b> ${i.type}</p>
+<p><b>Owner:</b> ${i.owner}</p>
+<p><b>Status:</b> ${i.status}</p>
+<p>${i.desc}</p>
+
+`;
+}
+
+/* BACK */
+
+function goBack(){
+
+window.location.href = "dashboard.html";
+
+}
+
+</script>
+
+</body>
+</html>
