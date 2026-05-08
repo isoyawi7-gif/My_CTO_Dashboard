@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CTO Meeting Workspace</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,sans-serif;
+}
+
+body{
+    min-height:100vh;
+    background:
+    radial-gradient(circle at top,
+    #2d63c8 0%,
+    #0b1f4d 45%,
+    #020817 100%);
+    color:white;
+    padding:30px;
+}
+
+/* ACCESS ERROR */
+.error-box{
+    width:100%;
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:1.2rem;
+    color:#ffb3b3;
+    text-align:center;
+}
+
+/* HEADER */
+.header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:25px;
+    flex-wrap:wrap;
+    gap:15px;
+}
+
+.header h1{
+    font-size:2rem;
+}
+
+.header p{
+    color:#d4d4d4;
+    margin-top:5px;
+}
+
+/* BACK BUTTON */
+.back-btn{
+    padding:12px 20px;
+    border:none;
+    border-radius:12px;
+    background:linear-gradient(135deg,#00c6ff,#0072ff);
+    color:white;
+    font-weight:bold;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+.back-btn:hover{
+    transform:scale(1.05);
+}
+
+/* MAIN CARD */
+.container{
+    max-width:1200px;
+    margin:auto;
+
+    background:rgba(255,255,255,0.08);
+    backdrop-filter:blur(18px);
+
+    border:1px solid rgba(255,255,255,0.15);
+
+    border-radius:20px;
+    padding:25px;
+
+    box-shadow:
+    0 0 40px rgba(0,0,0,0.4);
+}
+
+/* FORM */
+.form-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:20px;
+    margin-bottom:20px;
+}
+
+.input-group{
+    display:flex;
+    flex-direction:column;
+}
+
+.input-group label{
+    margin-bottom:8px;
+    color:#ddd;
+}
+
+.input-group input,
+.input-group textarea{
+    padding:14px;
+    border:none;
+    outline:none;
+    border-radius:12px;
+
+    background:rgba(255,255,255,0.12);
+    border:1px solid rgba(255,255,255,0.15);
+
+    color:white;
+    font-size:1rem;
+}
+
+.input-group textarea{
+    min-height:120px;
+    resize:vertical;
+}
+
+/* FULL WIDTH */
+.full-width{
+    grid-column:1 / -1;
+}
+
+/* SAVE BUTTON */
+.save-btn{
+    width:100%;
+    padding:15px;
+    border:none;
+    border-radius:12px;
+
+    background:linear-gradient(135deg,#00c853,#009624);
+
+    color:white;
+    font-size:1rem;
+    font-weight:bold;
+
+    cursor:pointer;
+    transition:0.3s;
+}
+
+.save-btn:hover{
+    transform:scale(1.02);
+}
+
+/* MEETING LIST */
+.meeting-section{
+    margin-top:35px;
+}
+
+.meeting-section h2{
+    margin-bottom:20px;
+}
+
+/* MEETING CARD */
+.meeting-card{
+    background:rgba(255,255,255,0.08);
+    border:1px solid rgba(255,255,255,0.1);
+    border-radius:16px;
+    padding:20px;
+    margin-bottom:18px;
+}
+
+.meeting-card h3{
+    color:#00c6ff;
+    margin-bottom:10px;
+}
+
+.meeting-card p{
+    margin-bottom:8px;
+    line-height:1.5;
+    color:#dcdcdc;
+}
+
+.meeting-card span{
+    color:white;
+    font-weight:bold;
+}
+
+/* MOBILE */
+@media(max-width:800px){
+
+    .form-grid{
+        grid-template-columns:1fr;
+    }
+
+    .header{
+        flex-direction:column;
+        align-items:flex-start;
+    }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div id="app"></div>
+
+<script>
+
+/* =========================
+   ACCESS PROTECTION
+========================= */
+
+if(localStorage.getItem("loggedIn") !== "true"){
+
+    document.getElementById("app").innerHTML = `
+
+        <div class="error-box">
+            ACCESS DENIED<br><br>
+            Please login through dashboard.html
+        </div>
+
+    `;
+}
+else{
+
+    loadMeetingPage();
+}
+
+/* =========================
+   LOAD PAGE
+========================= */
+
+function loadMeetingPage(){
+
+    document.getElementById("app").innerHTML = `
+
+    <div class="container">
+
+        <div class="header">
+
+            <div>
+                <h1>CTO Meeting Workspace</h1>
+                <p>Professional Meeting Scheduling & Notes Platform</p>
+            </div>
+
+            <button class="back-btn" onclick="goBack()">
+                Back to Dashboard
+            </button>
+
+        </div>
+
+        <!-- FORM -->
+
+        <div class="form-grid">
+
+            <div class="input-group">
+                <label>Meeting Title</label>
+
+                <input type="text"
+                id="meetingTitle"
+                placeholder="Enter Meeting Title">
+            </div>
+
+            <div class="input-group">
+                <label>Meeting Date</label>
+
+                <input type="date"
+                id="meetingDate">
+            </div>
+
+            <div class="input-group full-width">
+                <label>Meeting Purpose</label>
+
+                <textarea id="meetingPurpose"
+                placeholder="Enter purpose of the meeting"></textarea>
+            </div>
+
+            <div class="input-group full-width">
+                <label>Meeting Notes</label>
+
+                <textarea id="meetingNotes"
+                placeholder="Write meeting notes here"></textarea>
+            </div>
+
+            <div class="input-group full-width">
+                <button class="save-btn"
+                onclick="saveMeeting()">
+
+                    SAVE MEETING
+                </button>
+            </div>
+
+        </div>
+
+        <!-- MEETING DISPLAY -->
+
+        <div class="meeting-section">
+
+            <h2>Saved Meetings</h2>
+
+            <div id="meetingList"></div>
+
+        </div>
+
+    </div>
+
+    `;
+
+    loadMeetings();
+}
+
+/* =========================
+   SAVE MEETING
+========================= */
+
+function saveMeeting(){
+
+    const title =
+    document.getElementById("meetingTitle").value;
+
+    const date =
+    document.getElementById("meetingDate").value;
+
+    const purpose =
+    document.getElementById("meetingPurpose").value;
+
+    const notes =
+    document.getElementById("meetingNotes").value;
+
+    if(title === "" || date === ""){
+
+        alert("Please complete meeting title and date.");
+        return;
+    }
+
+    const meeting = {
+        title,
+        date,
+        purpose,
+        notes
+    };
+
+    let meetings =
+    JSON.parse(localStorage.getItem("ctoMeetings")) || [];
+
+    meetings.push(meeting);
+
+    localStorage.setItem(
+        "ctoMeetings",
+        JSON.stringify(meetings)
+    );
+
+    document.getElementById("meetingTitle").value = "";
+    document.getElementById("meetingDate").value = "";
+    document.getElementById("meetingPurpose").value = "";
+    document.getElementById("meetingNotes").value = "";
+
+    loadMeetings();
+}
+
+/* =========================
+   LOAD MEETINGS
+========================= */
+
+function loadMeetings(){
+
+    let meetings =
+    JSON.parse(localStorage.getItem("ctoMeetings")) || [];
+
+    let html = "";
+
+    meetings.reverse().forEach(meeting => {
+
+        html += `
+
+        <div class="meeting-card">
+
+            <h3>${meeting.title}</h3>
+
+            <p>
+                <span>Date:</span>
+                ${meeting.date}
+            </p>
+
+            <p>
+                <span>Purpose:</span><br>
+                ${meeting.purpose}
+            </p>
+
+            <p>
+                <span>Notes:</span><br>
+                ${meeting.notes}
+            </p>
+
+        </div>
+
+        `;
+    });
+
+    document.getElementById("meetingList").innerHTML = html;
+}
+
+/* =========================
+   BACK BUTTON
+========================= */
+
+function goBack(){
+
+    window.location.href = "dashboard.html";
+}
+
+</script>
+
+</body>
+</html>
