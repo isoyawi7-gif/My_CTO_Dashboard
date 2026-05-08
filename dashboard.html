@@ -521,6 +521,50 @@ body::before{
 
 <script>
 
+<!-- ADD THIS INSIDE YOUR <script> SECTION AT THE TOP -->
+
+/* LOGIN PROTECTION */
+
+if(localStorage.getItem("loggedIn") !== "true"){
+
+    window.location.href = "index.html";
+}
+
+<!-- REPLACE YOUR LOGIN FUNCTION IN index.html WITH THIS -->
+
+<script>
+
+function login(){
+
+    const username =
+    document.getElementById("username").value;
+
+    const password =
+    document.getElementById("password").value;
+
+    if(
+        username === "admin" &&
+        password === "admin"
+    )
+    {
+
+        /* SAVE LOGIN SESSION */
+
+        localStorage.setItem("loggedIn", "true");
+
+        /* OPEN DASHBOARD */
+
+        window.location.href = "dashboard.html";
+    }
+
+    else{
+
+        document.getElementById("error").innerHTML =
+        "Invalid Username or Password";
+    }
+}
+
+    
 function openPage(page){
 
     alert("Opening: " + page);
@@ -531,11 +575,18 @@ function openPage(page){
 
 /* ADD THIS INSIDE YOUR SCRIPT */
 
+<!-- REPLACE YOUR logout() FUNCTION WITH THIS -->
+
 function logout(){
+
+    /* CLEAR SESSION */
+
+    localStorage.removeItem("loggedIn");
+
+    /* RETURN TO LOGIN PAGE */
 
     window.location.href = "index.html";
 }
-
 </script>
 
 </body>
