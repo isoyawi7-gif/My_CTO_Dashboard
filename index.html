@@ -1,1 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CTO Workspace Login</title>
 
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, sans-serif;
+}
+
+body{
+
+    height:100vh;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    overflow:hidden;
+
+    background:
+    radial-gradient(circle at top,
+    #2d63c8 0%,
+    #0b1f4d 45%,
+    #020817 100%);
+
+    position:relative;
+}
+
+/* STARS */
+
+body::before{
+
+    content:"";
+
+    position:absolute;
+
+    width:100%;
+    height:100%;
+
+    background-image:
+    radial-gradient(white 1px, transparent 1px),
+    radial-gradient(rgba(255,255,255,0.7) 1px, transparent 1px);
+
+    background-size:
+    140px 140px,
+    220px 220px;
+
+    opacity:0.4;
+}
+
+/* GLASS LOGIN BOX */
+
+.login-container{
+
+    position:relative;
+
+    width:400px;
+
+    padding:45px;
+
+    border-radius:25px;
+
+    background:rgba(255,255,255,0.08);
+
+    backdrop-filter:blur(18px);
+
+    border:1px solid rgba(255,255,255,0.2);
+
+    box-shadow:
+    0 0 40px rgba(0,0,0,0.4),
+    inset 0 0 20px rgba(255,255,255,0.08);
+
+    text-align:center;
+
+    z-index:2;
+}
+
+/* TITLE */
+
+.login-container h1{
+
+    color:white;
+
+    font-size:2rem;
+
+    margin-bottom:10px;
+
+    letter-spacing:1px;
+}
+
+.login-container h2{
+
+    color:#d8d8d8;
+
+    font-size:1rem;
+
+    font-weight:normal;
+
+    margin-bottom:35px;
+}
+
+/* INPUT */
+
+<div class="input-box">
+
+    <input type="text"
+    id="username"
+    placeholder="Enter Username">
+
+</div>
+.input-box{
+
+    width:100%;
+
+    margin-bottom:20px;
+}
+
+.input-box input{
+
+    width:100%;
+
+    padding:15px;
+
+    border:none;
+
+    outline:none;
+
+    border-radius:14px;
+
+    background:rgba(255,255,255,0.12);
+
+    color:white;
+
+    font-size:1rem;
+
+    backdrop-filter:blur(10px);
+
+    border:1px solid rgba(255,255,255,0.1);
+}
+
+.input-box input::placeholder{
+
+    color:#dddddd;
+}
+
+/* BUTTON */
+
+.login-btn{
+
+    width:100%;
+
+    padding:15px;
+
+    border:none;
+
+    border-radius:14px;
+
+    background:linear-gradient(
+    135deg,
+    #00c6ff,
+    #0072ff);
+
+    color:white;
+
+    font-size:1rem;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+    transition:0.3s ease;
+
+    box-shadow:
+    0 0 25px rgba(0,114,255,0.4);
+}
+
+.login-btn:hover{
+
+    transform:scale(1.03);
+
+    box-shadow:
+    0 0 35px rgba(0,114,255,0.6);
+}
+
+/* ERROR */
+
+#error{
+
+    margin-top:18px;
+
+    color:#ffb3b3;
+
+    font-size:0.95rem;
+}
+
+/* MOBILE */
+
+@media(max-width:500px){
+
+    .login-container{
+
+        width:92%;
+        padding:30px;
+    }
+
+    .login-container h1{
+
+        font-size:1.5rem;
+    }
+
+    .login-container h2{
+
+        font-size:0.85rem;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="login-container">
+
+    <h1>
+        ISO YAWI
+    </h1>
+
+    <h2>
+        CTO Workspace Access Portal
+    </h2>
+
+    <div class="input-box">
+
+        <input type="password"
+        id="password"
+        placeholder="Enter Workspace Password">
+
+    </div>
+
+    <button class="login-btn"
+    onclick="login()">
+
+        LOGIN
+
+    </button>
+
+    <div id="error"></div>
+
+</div>
+
+<script>
+
+function login(){
+
+    const username =
+    document.getElementById("username").value;
+
+    const password =
+    document.getElementById("password").value;
+
+    if(
+        username === "admin" &&
+        password === "admin"
+    ){
+
+        window.location.href = "dashboard.html";
+    }
+
+    else{
+
+        document.getElementById("error").innerHTML =
+        "Invalid Username or Password";
+    }
+}
+
+</script>
+
+</body>
+</html>
