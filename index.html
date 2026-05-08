@@ -14,22 +14,56 @@
 }
 
 body{
-    background:#0b0b0b;
     height:100vh;
     display:flex;
     justify-content:center;
     align-items:center;
     font-family:Arial, sans-serif;
     overflow:hidden;
+    background:
+    radial-gradient(circle at top, rgba(30,60,120,0.8), #050816 70%);
+    position:relative;
 }
 
-/* MAIN DASHBOARD */
+/* STARS */
+
+body::before{
+    content:"";
+    position:absolute;
+    width:100%;
+    height:100%;
+    background-image:
+    radial-gradient(white 1px, transparent 1px),
+    radial-gradient(white 1px, transparent 1px),
+    radial-gradient(rgba(255,255,255,0.7) 1px, transparent 1px);
+
+    background-size:
+    120px 120px,
+    180px 180px,
+    250px 250px;
+
+    background-position:
+    10px 20px,
+    80px 120px,
+    40px 60px;
+
+    opacity:0.6;
+    animation:twinkle 6s infinite alternate;
+}
+
+@keyframes twinkle{
+    from{opacity:0.3;}
+    to{opacity:0.8;}
+}
+
+/* DASHBOARD */
 
 .dashboard{
     position:relative;
     width:90vw;
-    max-width:750px;
+    max-width:780px;
     aspect-ratio:1/1;
+    z-index:2;
 }
 
 /* PIE */
@@ -53,18 +87,29 @@ body{
     );
 
     box-shadow:
-    0 0 40px rgba(255,215,0,0.3),
-    inset 0 0 40px rgba(0,0,0,0.8);
+    0 0 50px rgba(255,215,0,0.25),
+    inset 0 0 50px rgba(0,0,0,0.8);
+
+    animation:rotatePie 40s linear infinite;
+}
+
+@keyframes rotatePie{
+    from{
+        transform:rotate(0deg);
+    }
+    to{
+        transform:rotate(360deg);
+    }
 }
 
 /* CENTER */
 
 .center{
     position:absolute;
-    width:42%;
-    height:42%;
+    width:38%;
+    height:38%;
     border-radius:50%;
-    background:#111;
+    background:#071120;
     border:5px solid gold;
 
     top:50%;
@@ -79,14 +124,15 @@ body{
     z-index:50;
 
     box-shadow:
-    0 0 25px rgba(255,215,0,0.4),
-    inset 0 0 15px rgba(255,215,0,0.2);
+    0 0 25px rgba(255,215,0,0.5),
+    inset 0 0 20px rgba(255,215,0,0.2);
 }
 
 .center h1{
     color:gold;
-    font-size:1.5rem;
-    line-height:1.5;
+    font-size:1.4rem;
+    line-height:1.4;
+    letter-spacing:1px;
 }
 
 /* DIVIDER LINES */
@@ -95,7 +141,7 @@ body{
     position:absolute;
     width:3px;
     height:50%;
-    background:#111;
+    background:#071120;
     top:0;
     left:50%;
     transform-origin:bottom center;
@@ -111,7 +157,7 @@ body{
 .l7{ transform:translateX(-50%) rotate(270deg); }
 .l8{ transform:translateX(-50%) rotate(315deg); }
 
-/* PIE SLICE BUTTONS */
+/* SLICES */
 
 .slice{
     position:absolute;
@@ -128,76 +174,82 @@ body{
 
     color:white;
     font-weight:bold;
-    font-size:0.85rem;
+    font-size:0.78rem;
     line-height:1.2;
 
     cursor:pointer;
-    transition:0.3s ease;
+    transition:0.4s ease;
 
     border-radius:50%;
+
+    backdrop-filter:blur(3px);
 }
 
-/* REACTIVE EFFECT */
+/* TOGGLE EFFECT */
 
 .slice:hover{
     background:rgba(255,215,0,0.95);
     color:black;
-    transform:scale(1.08);
-    box-shadow:0 0 25px gold;
+    transform:scale(1.12);
+    box-shadow:
+    0 0 30px gold,
+    0 0 60px rgba(255,215,0,0.5);
 }
 
-/* POSITIONS INSIDE PIE SHAPE */
+/* POSITIONED INSIDE EACH PIE SECTION */
 
 .s1{
-    top:6%;
+    top:4%;
     left:39%;
 }
 
 .s2{
-    top:20%;
-    right:10%;
+    top:16%;
+    right:9%;
 }
 
 .s3{
-    top:40%;
-    right:4%;
+    top:39%;
+    right:3%;
 }
 
 .s4{
-    bottom:18%;
-    right:12%;
+    bottom:16%;
+    right:10%;
 }
 
 .s5{
-    bottom:4%;
+    bottom:3%;
     left:39%;
 }
 
 .s6{
-    bottom:18%;
-    left:12%;
+    bottom:16%;
+    left:10%;
 }
 
 .s7{
-    top:40%;
-    left:4%;
+    top:39%;
+    left:3%;
 }
 
 .s8{
-    top:20%;
-    left:10%;
+    top:16%;
+    left:9%;
 }
 
 /* MOBILE */
 
-@media(max-width:600px){
+@media(max-width:700px){
 
     .slice{
-        font-size:0.62rem;
+        font-size:0.56rem;
+        width:24%;
+        height:24%;
     }
 
     .center h1{
-        font-size:1rem;
+        font-size:0.95rem;
     }
 }
 
@@ -211,7 +263,7 @@ body{
     <!-- PIE -->
     <div class="pie"></div>
 
-    <!-- DIVIDERS -->
+    <!-- DIVIDER LINES -->
     <div class="line l1"></div>
     <div class="line l2"></div>
     <div class="line l3"></div>
@@ -231,40 +283,46 @@ body{
         </h1>
     </div>
 
-    <!-- ALL TITLES INSIDE PIE SLICES -->
+    <!-- PIE SLICES -->
 
-    <div class="slice s1" onclick="openPage('goals.html')">
-        Goals & Targets
+    <div class="slice s1" onclick="openPage('philosophies.html')">
+        PHILOSOPHIES<br>
+        VISION & MISSION
     </div>
 
-    <div class="slice s2" onclick="openPage('policies.html')">
-        Policies & Philosophies
+    <div class="slice s2" onclick="openPage('meeting.html')">
+        MEETING &<br>
+        SCHEDULE
     </div>
 
-    <div class="slice s3" onclick="openPage('meeting.html')">
-        Meeting & Schedule
+    <div class="slice s3" onclick="openPage('todo.html')">
+        THINGS<br>
+        TO DO
     </div>
 
-    <div class="slice s4" onclick="openPage('todo.html')">
-        Things To Do
+    <div class="slice s4" onclick="openPage('budget.html')">
+        TECHNICAL BUDGET<br>
+        CAPEX / OPEX
     </div>
 
-    <div class="slice s5" onclick="openPage('budget.html')">
-        Technical Budget<br>
-        (CAPEX/OPEX)
+    <div class="slice s5" onclick="openPage('technical.html')">
+        TECHNICAL<br>
+        PROJECTS & OPERATIONS
     </div>
 
-    <div class="slice s6" onclick="openPage('technology.html')">
-        Technology
+    <div class="slice s6" onclick="openPage('warehouse.html')">
+        WAREHOUSE &<br>
+        LOGISTICS
     </div>
 
-    <div class="slice s7" onclick="openPage('projects.html')">
-        Projects
+    <div class="slice s7" onclick="openPage('future.html')">
+        FUTURE<br>
+        PLANS
     </div>
 
-    <div class="slice s8" onclick="openPage('operations.html')">
-        Operations &<br>
-        Future Plans
+    <div class="slice s8" onclick="openPage('goals.html')">
+        GOALS &<br>
+        TARGETS
     </div>
 
 </div>
@@ -273,10 +331,9 @@ body{
 
 function openPage(page){
 
-    // Future page linking
+    // FUTURE LINKING
     alert("Opening: " + page);
 
-    // Example:
     // window.location.href = page;
 }
 
