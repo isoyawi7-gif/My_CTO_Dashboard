@@ -92,26 +92,30 @@ ul{
 
 <script>
 
-// ==========================
-// ACCESS CONTROL
-// ==========================
+/* =========================
+   ACCESS CONTROL (FIXED)
+========================= */
 function checkAccess(){
-    const isLoggedIn = sessionStorage.getItem("auth");
 
-    if(!isLoggedIn){
+    const isLoggedIn = localStorage.getItem("loggedIn");
+
+    if(isLoggedIn !== "true"){
+
         document.getElementById("app").innerHTML = `
-            <div class='error'>
-                ERROR: Unauthorized Access. Please login through index page.
+            <div class="error">
+                PLEASE LOG IN THROUGH dashboard.html
             </div>
         `;
+
         return false;
     }
+
     return true;
 }
 
-// ==========================
-// PAGE LOAD
-// ==========================
+/* =========================
+   LOAD PAGE
+========================= */
 if(checkAccess()){
 
     document.getElementById("app").innerHTML = `
@@ -155,9 +159,9 @@ if(checkAccess()){
     `;
 }
 
-// ==========================
-// NAVIGATION
-// ==========================
+/* =========================
+   BACK BUTTON
+========================= */
 function goBack(){
     window.location.href = "dashboard.html";
 }
