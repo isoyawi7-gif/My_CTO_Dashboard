@@ -348,49 +348,72 @@ function loadPage(){
 
             <!-- FORM -->
 
-            <div class="form-grid">
+<div class="form-grid">
 
-                <div class="input-group">
-                    <label>Meeting Title</label>
+    <!-- TITLE -->
+    <div class="input-group">
+        <label>Meeting Title</label>
 
-                    <input type="text"
-                    id="meetingTitle"
-                    placeholder="Enter Meeting Title">
-                </div>
+        <input type="text"
+        id="meetingTitle"
+        placeholder="Enter Meeting Title">
+    </div>
 
-                <div class="input-group">
-                    <label>Meeting Date</label>
+    <!-- DATE -->
+    <div class="input-group">
+        <label>Meeting Date</label>
 
-                    <input type="date"
-                    id="meetingDate">
-                </div>
+        <input type="date"
+        id="meetingDate">
+    </div>
 
-                <div class="input-group full-width">
-                    <label>Meeting Purpose</label>
+    <!-- CHAIRED BY -->
+    <div class="input-group">
+        <label>Meeting Chaired By</label>
 
-                    <textarea id="meetingPurpose"
-                    placeholder="Enter purpose of the meeting"></textarea>
-                </div>
+        <input type="text"
+        id="meetingChair"
+        placeholder="Enter Chairperson Name">
+    </div>
 
-                <div class="input-group full-width">
-                    <label>Meeting Notes</label>
+    <!-- ATTENDEES -->
+    <div class="input-group">
+        <label>Attendees</label>
 
-                    <textarea id="meetingNotes"
-                    placeholder="Write meeting notes here"></textarea>
-                </div>
+        <input type="text"
+        id="meetingAttendees"
+        placeholder="Enter attendee names separated by commas">
+    </div>
 
-                <div class="input-group full-width">
+    <!-- PURPOSE -->
+    <div class="input-group full-width">
+        <label>Meeting Purpose</label>
 
-                    <button class="save-btn"
-                    onclick="saveMeeting()">
+        <textarea id="meetingPurpose"
+        placeholder="Enter purpose of the meeting"></textarea>
+    </div>
 
-                        SAVE MEETING
+    <!-- NOTES -->
+    <div class="input-group full-width">
+        <label>Meeting Notes</label>
 
-                    </button>
+        <textarea id="meetingNotes"
+        placeholder="Write meeting notes here"></textarea>
+    </div>
 
-                </div>
+    <!-- BUTTON -->
+    <div class="input-group full-width">
 
-            </div>
+        <button class="save-btn"
+        onclick="saveMeeting()">
+
+            SAVE MEETING
+
+        </button>
+
+    </div>
+
+</div>
 
             <!-- VIEW AREA -->
 
@@ -414,55 +437,62 @@ function loadPage(){
 /* =========================
    SAVE MEETING
 ========================= */
+<script>
 
-function saveMeeting(){
+<script>
 
-    const title =
-    document.getElementById("meetingTitle").value;
-
-    const date =
-    document.getElementById("meetingDate").value;
-
-    const purpose =
-    document.getElementById("meetingPurpose").value;
-
-    const notes =
-    document.getElementById("meetingNotes").value;
-
-    if(title === "" || date === ""){
-
-        alert("Please enter meeting title and date.");
-        return;
-    }
-
-    const meeting = {
-        id:Date.now(),
-        title,
-        date,
-        purpose,
-        notes
-    };
+function viewMeeting(id){
 
     let meetings =
     JSON.parse(localStorage.getItem("ctoMeetings")) || [];
 
-    meetings.push(meeting);
+    let meeting =
+    meetings.find(m => m.id === id);
 
-    localStorage.setItem(
-        "ctoMeetings",
-        JSON.stringify(meetings)
-    );
+    document.getElementById("meetingView").innerHTML = `
 
-    document.getElementById("meetingTitle").value = "";
-    document.getElementById("meetingDate").value = "";
-    document.getElementById("meetingPurpose").value = "";
-    document.getElementById("meetingNotes").value = "";
+    <div class="view-card">
 
-    loadMeetings();
+        <h2>${meeting.title}</h2>
+
+        <p>
+            <span>Date:</span><br>
+            ${meeting.date}
+        </p>
+
+        <p>
+            <span>Meeting Chaired By:</span><br>
+            ${meeting.chair}
+        </p>
+
+        <p>
+            <span>Attendees:</span><br>
+            ${meeting.attendees}
+        </p>
+
+        <p>
+            <span>Purpose:</span><br>
+            ${meeting.purpose}
+        </p>
+
+        <p>
+            <span>Meeting Notes:</span><br>
+            ${meeting.notes}
+        </p>
+
+    </div>
+
+    `;
 }
 
+</script>
+
+</script>
+
+<script>
+
 /* =========================
-   LOAD SIDEBAR MEETINGS
+   LOAD MEETINGS WITH GROUPS
 ========================= */
 
 function loadMeetings(){
@@ -470,11 +500,40 @@ function loadMeetings(){
     let meetings =
     JSON.parse(localStorage.getItem("ctoMeetings")) || [];
 
-    let html = "";
+    const now = new Date();
+
+    const currentMonth = now.getMonth();
+    const currentYear = now.getFullYear();
+
+    const lastMonth =
+    currentMonth === 0 ? 11 : currentMonth - 1;
+
+    const lastMonthYear =
+    currentMonth === 0 ? currentYear - 1 : currentYear;
+
+    let thisMonthHTML = "";
+    let lastMonthHTML = "";
+    let upcomingHTML = "";
+    let yearHTML = "";
 
     meetings.reverse().forEach(meeting => {
 
-        html += `
+        const meetingDate =
+        new Date(meeting.date);
+
+        const meetingMonth =
+        meetingDate.getMonth();
+
+        const meetingYear =
+        meetingDate.getFullYear();
+
+        const meetingTime =
+        meetingDate.getTime();
+
+        const nowTime =
+        now.getTime();
+
+        const card = `
 
         <div class="sidebar-meeting"
         onclick="viewMeeting(${meeting.id})">
@@ -486,11 +545,63 @@ function loadMeetings(){
         </div>
 
         `;
+
+        /* THIS MONTH */
+
+        if(
+            meetingMonth === currentMonth &&
+            meetingYear === currentYear
+        ){
+            thisMonthHTML += card;
+        }
+
+        /* LAST MONTH */
+
+        if(
+            meetingMonth === lastMonth &&
+            meetingYear === lastMonthYear
+        ){
+            lastMonthHTML += card;
+        }
+
+        /* UPCOMING */
+
+        if(meetingTime > nowTime){
+            upcomingHTML += card;
+        }
+
+        /* YEAR */
+
+        if(meetingYear === currentYear){
+            yearHTML += card;
+        }
+
     });
 
-    document.getElementById("meetingArchive").innerHTML = html;
+    document.getElementById("meetingArchive").innerHTML = `
+
+        <h2>This Month</h2>
+        ${thisMonthHTML || "<p>No meetings found.</p>"}
+
+        <br>
+
+        <h2>Last Month</h2>
+        ${lastMonthHTML || "<p>No meetings found.</p>"}
+
+        <br>
+
+        <h2>Upcoming Meetings</h2>
+        ${upcomingHTML || "<p>No meetings found.</p>"}
+
+        <br>
+
+        <h2>${currentYear} Meetings</h2>
+        ${yearHTML || "<p>No meetings found.</p>"}
+
+    `;
 }
 
+</script>
 /* =========================
    VIEW MEETING
 ========================= */
@@ -539,6 +650,13 @@ function goBack(){
 }
 
 </script>
+<footer style="text-align:center;
+margin-top:20px;
+color:#d4d4d4;
+font-size:0.9rem;">
 
+    Powered by Iso Yawi
+
+</footer>
 </body>
 </html>
