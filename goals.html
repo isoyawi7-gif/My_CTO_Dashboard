@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CTO Goals & Strategic Planning</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,sans-serif;
+}
+
+body{
+
+    min-height:100vh;
+
+    background:
+    radial-gradient(circle at top,
+    #2d63c8 0%,
+    #0b1f4d 45%,
+    #020817 100%);
+
+    color:white;
+
+    padding:20px;
+}
+
+/* ACCESS DENIED */
+
+.error-box{
+
+    width:100%;
+    height:100vh;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    text-align:center;
+
+    color:#ffb3b3;
+
+    font-size:1.2rem;
+}
+
+/* MAIN LAYOUT */
+
+.main-layout{
+
+    display:flex;
+
+    gap:20px;
+}
+
+/* SIDEBAR */
+
+.sidebar{
+
+    width:320px;
+
+    background:rgba(255,255,255,0.08);
+
+    backdrop-filter:blur(18px);
+
+    border:1px solid rgba(255,255,255,0.15);
+
+    border-radius:20px;
+
+    padding:20px;
+
+    height:90vh;
+
+    overflow-y:auto;
+
+    box-shadow:0 0 30px rgba(0,0,0,0.3);
+}
+
+.sidebar h2{
+
+    color:#00c6ff;
+
+    margin-bottom:15px;
+}
+
+/* GOAL CARD */
+
+.goal-card{
+
+    background:rgba(255,255,255,0.08);
+
+    border:1px solid rgba(255,255,255,0.1);
+
+    border-radius:14px;
+
+    padding:15px;
+
+    margin-bottom:15px;
+
+    cursor:pointer;
+
+    transition:0.3s;
+}
+
+.goal-card:hover{
+
+    transform:scale(1.02);
+
+    background:rgba(255,255,255,0.15);
+}
+
+.goal-card h3{
+
+    color:#00c6ff;
+
+    margin-bottom:6px;
+}
+
+.goal-card p{
+
+    color:#d4d4d4;
+
+    font-size:0.85rem;
+}
+
+/* CONTENT */
+
+.content{
+
+    flex:1;
+
+    background:rgba(255,255,255,0.08);
+
+    backdrop-filter:blur(18px);
+
+    border:1px solid rgba(255,255,255,0.15);
+
+    border-radius:20px;
+
+    padding:25px;
+
+    box-shadow:0 0 40px rgba(0,0,0,0.3);
+}
+
+/* HEADER */
+
+.header{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    flex-wrap:wrap;
+
+    gap:15px;
+
+    margin-bottom:25px;
+}
+
+.header h1{
+
+    font-size:2rem;
+}
+
+.header p{
+
+    color:#d4d4d4;
+}
+
+/* BACK BUTTON */
+
+.back-btn{
+
+    padding:12px 20px;
+
+    border:none;
+
+    border-radius:12px;
+
+    background:linear-gradient(135deg,#00c6ff,#0072ff);
+
+    color:white;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+    transition:0.3s;
+}
+
+.back-btn:hover{
+
+    transform:scale(1.05);
+}
+
+/* FORM */
+
+.form-grid{
+
+    display:grid;
+
+    grid-template-columns:1fr 1fr;
+
+    gap:20px;
+}
+
+.input-group{
+
+    display:flex;
+
+    flex-direction:column;
+}
+
+.input-group label{
+
+    margin-bottom:8px;
+
+    color:#ddd;
+}
+
+.input-group input,
+.input-group select,
+.input-group textarea{
+
+    padding:14px;
+
+    border:none;
+
+    outline:none;
+
+    border-radius:12px;
+
+    background:rgba(255,255,255,0.12);
+
+    border:1px solid rgba(255,255,255,0.15);
+
+    color:white;
+
+    font-size:1rem;
+}
+
+.full{
+
+    grid-column:1 / -1;
+}
+
+/* SAVE */
+
+.save-btn{
+
+    width:100%;
+
+    padding:15px;
+
+    border:none;
+
+    border-radius:12px;
+
+    background:linear-gradient(135deg,#00c853,#009624);
+
+    color:white;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+    transition:0.3s;
+}
+
+.save-btn:hover{
+
+    transform:scale(1.02);
+}
+
+/* VIEW */
+
+.view-card{
+
+    margin-top:20px;
+
+    background:rgba(255,255,255,0.08);
+
+    border:1px solid rgba(255,255,255,0.1);
+
+    border-radius:15px;
+
+    padding:20px;
+}
+
+.view-card h2{
+
+    color:#00c6ff;
+
+    margin-bottom:10px;
+}
+
+/* FOOTER */
+
+.footer{
+
+    text-align:center;
+
+    margin-top:20px;
+
+    padding:15px;
+
+    color:#d4d4d4;
+
+    background:rgba(255,255,255,0.05);
+
+    border-radius:12px;
+
+    border:1px solid rgba(255,255,255,0.08);
+}
+
+/* MOBILE */
+
+@media(max-width:1000px){
+
+    .main-layout{
+
+        flex-direction:column;
+    }
+
+    .sidebar{
+
+        width:100%;
+
+        height:auto;
+    }
+
+    .form-grid{
+
+        grid-template-columns:1fr;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<div id="app"></div>
+
+<script>
+
+/* ACCESS CONTROL */
+
+if(sessionStorage.getItem("auth") !== "true"){
+
+    document.getElementById("app").innerHTML = `
+
+    <div class="error-box">
+
+        ACCESS DENIED<br><br>
+
+        Please login through dashboard.html
+
+    </div>
+
+    `;
+}
+else{
+
+    loadPage();
+}
+
+/* LOAD PAGE */
+
+function loadPage(){
+
+document.getElementById("app").innerHTML = `
+
+<div class="main-layout">
+
+<!-- SIDEBAR -->
+<div class="sidebar">
+
+    <h2>Goal Archive</h2>
+
+    <div id="archive"></div>
+
+</div>
+
+<!-- CONTENT -->
+<div class="content">
+
+    <div class="header">
+
+        <div>
+
+            <h1>CTO Strategic Goals & Planning</h1>
+
+            <p>Daily • Weekly • Monthly • Quarterly • Yearly Objectives</p>
+
+        </div>
+
+        <button class="back-btn"
+        onclick="goBack()">
+
+            Back to Dashboard
+
+        </button>
+
+    </div>
+
+    <!-- FORM -->
+
+    <div class="form-grid">
+
+        <div class="input-group">
+
+            <label>Goal Type</label>
+
+            <select id="type">
+
+                <option>Daily</option>
+                <option>Weekly</option>
+                <option>Monthly</option>
+                <option>Quarterly</option>
+                <option>Yearly</option>
+
+            </select>
+
+        </div>
+
+        <div class="input-group">
+
+            <label>Title</label>
+
+            <input type="text" id="title">
+
+        </div>
+
+        <div class="input-group">
+
+            <label>Target</label>
+
+            <input type="text" id="target">
+
+        </div>
+
+        <div class="input-group">
+
+            <label>Priority</label>
+
+            <select id="priority">
+
+                <option>High</option>
+                <option>Medium</option>
+                <option>Low</option>
+
+            </select>
+
+        </div>
+
+        <div class="input-group full">
+
+            <label>Objective Description</label>
+
+            <textarea id="desc"></textarea>
+
+        </div>
+
+        <div class="input-group full">
+
+            <button class="save-btn"
+            onclick="saveGoal()">
+
+                SAVE GOAL
+
+            </button>
+
+        </div>
+
+    </div>
+
+    <!-- VIEW -->
+
+    <div class="view-card">
+
+        <h2>Goal Details</h2>
+
+        <div id="view"></div>
+
+    </div>
+
+</div>
+
+</div>
+
+<footer class="footer">
+
+Powered by Iso Yawi
+
+</footer>
+
+`;
+
+loadData();
+}
+
+/* SAVE */
+
+function saveGoal(){
+
+let goals =
+JSON.parse(localStorage.getItem("ctoGoals")) || [];
+
+let obj = {
+
+id:Date.now(),
+
+type:document.getElementById("type").value,
+
+title:document.getElementById("title").value,
+
+target:document.getElementById("target").value,
+
+priority:document.getElementById("priority").value,
+
+desc:document.getElementById("desc").value
+};
+
+goals.push(obj);
+
+localStorage.setItem("ctoGoals", JSON.stringify(goals));
+
+loadData();
+
+alert("Goal Saved");
+}
+
+/* LOAD */
+
+function loadData(){
+
+let goals =
+JSON.parse(localStorage.getItem("ctoGoals")) || [];
+
+let html = "";
+
+goals.reverse().forEach(g => {
+
+html += `
+
+<div class="goal-card"
+onclick="view('${g.id}')">
+
+<h3>${g.title}</h3>
+
+<p>${g.type} | ${g.priority}</p>
+
+</div>
+
+`;
+});
+
+document.getElementById("archive").innerHTML =
+html || "<p>No goals found</p>";
+}
+
+/* VIEW */
+
+function view(id){
+
+let goals =
+JSON.parse(localStorage.getItem("ctoGoals")) || [];
+
+let g = goals.find(x => x.id == id);
+
+document.getElementById("view").innerHTML = `
+
+<h2>${g.title}</h2>
+
+<p><b>Type:</b> ${g.type}</p>
+
+<p><b>Target:</b> ${g.target}</p>
+
+<p><b>Priority:</b> ${g.priority}</p>
+
+<p>${g.desc}</p>
+
+`;
+}
+
+/* BACK */
+
+function goBack(){
+
+window.location.href = "dashboard.html";
+
+}
+
+</script>
+
+</body>
+</html>
