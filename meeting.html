@@ -16,25 +16,110 @@
 
 body{
     min-height:100vh;
+
     background:
     radial-gradient(circle at top,
     #2d63c8 0%,
     #0b1f4d 45%,
     #020817 100%);
+
     color:white;
-    padding:30px;
+    padding:20px;
 }
 
-/* ACCESS ERROR */
+/* ACCESS DENIED */
 .error-box{
     width:100%;
     height:100vh;
     display:flex;
     justify-content:center;
     align-items:center;
-    font-size:1.2rem;
-    color:#ffb3b3;
     text-align:center;
+    color:#ffb3b3;
+    font-size:1.2rem;
+}
+
+/* MAIN LAYOUT */
+.main-layout{
+    display:flex;
+    gap:20px;
+}
+
+/* LEFT SIDEBAR */
+.sidebar{
+    width:320px;
+
+    background:rgba(255,255,255,0.08);
+
+    backdrop-filter:blur(18px);
+
+    border:1px solid rgba(255,255,255,0.15);
+
+    border-radius:20px;
+
+    padding:20px;
+
+    height:90vh;
+
+    overflow-y:auto;
+
+    box-shadow:
+    0 0 30px rgba(0,0,0,0.3);
+}
+
+.sidebar h2{
+    margin-bottom:20px;
+}
+
+/* SIDEBAR MEETING ITEM */
+.sidebar-meeting{
+    background:rgba(255,255,255,0.08);
+
+    border:1px solid rgba(255,255,255,0.1);
+
+    border-radius:14px;
+
+    padding:15px;
+
+    margin-bottom:15px;
+
+    cursor:pointer;
+
+    transition:0.3s;
+}
+
+.sidebar-meeting:hover{
+    background:rgba(255,255,255,0.15);
+    transform:scale(1.02);
+}
+
+.sidebar-meeting h3{
+    font-size:1rem;
+    margin-bottom:8px;
+    color:#00c6ff;
+}
+
+.sidebar-meeting p{
+    color:#d4d4d4;
+    font-size:0.85rem;
+}
+
+/* RIGHT CONTENT */
+.content{
+    flex:1;
+
+    background:rgba(255,255,255,0.08);
+
+    backdrop-filter:blur(18px);
+
+    border:1px solid rgba(255,255,255,0.15);
+
+    border-radius:20px;
+
+    padding:25px;
+
+    box-shadow:
+    0 0 40px rgba(0,0,0,0.3);
 }
 
 /* HEADER */
@@ -56,37 +141,23 @@ body{
     margin-top:5px;
 }
 
-/* BACK BUTTON */
+/* BUTTON */
 .back-btn{
     padding:12px 20px;
+
     border:none;
     border-radius:12px;
+
     background:linear-gradient(135deg,#00c6ff,#0072ff);
+
     color:white;
     font-weight:bold;
+
     cursor:pointer;
-    transition:0.3s;
 }
 
 .back-btn:hover{
     transform:scale(1.05);
-}
-
-/* MAIN CARD */
-.container{
-    max-width:1200px;
-    margin:auto;
-
-    background:rgba(255,255,255,0.08);
-    backdrop-filter:blur(18px);
-
-    border:1px solid rgba(255,255,255,0.15);
-
-    border-radius:20px;
-    padding:25px;
-
-    box-shadow:
-    0 0 40px rgba(0,0,0,0.4);
 }
 
 /* FORM */
@@ -94,9 +165,9 @@ body{
     display:grid;
     grid-template-columns:1fr 1fr;
     gap:20px;
-    margin-bottom:20px;
 }
 
+/* INPUT */
 .input-group{
     display:flex;
     flex-direction:column;
@@ -110,11 +181,14 @@ body{
 .input-group input,
 .input-group textarea{
     padding:14px;
+
     border:none;
     outline:none;
+
     border-radius:12px;
 
     background:rgba(255,255,255,0.12);
+
     border:1px solid rgba(255,255,255,0.15);
 
     color:white;
@@ -126,7 +200,6 @@ body{
     resize:vertical;
 }
 
-/* FULL WIDTH */
 .full-width{
     grid-column:1 / -1;
 }
@@ -134,70 +207,75 @@ body{
 /* SAVE BUTTON */
 .save-btn{
     width:100%;
+
     padding:15px;
+
     border:none;
     border-radius:12px;
 
     background:linear-gradient(135deg,#00c853,#009624);
 
     color:white;
+
     font-size:1rem;
     font-weight:bold;
 
     cursor:pointer;
-    transition:0.3s;
 }
 
 .save-btn:hover{
     transform:scale(1.02);
 }
 
-/* MEETING LIST */
-.meeting-section{
+/* VIEW AREA */
+.view-area{
     margin-top:35px;
 }
 
-.meeting-section h2{
-    margin-bottom:20px;
-}
-
-/* MEETING CARD */
-.meeting-card{
+/* VIEW CARD */
+.view-card{
     background:rgba(255,255,255,0.08);
+
     border:1px solid rgba(255,255,255,0.1);
+
     border-radius:16px;
+
     padding:20px;
-    margin-bottom:18px;
+
+    margin-top:15px;
 }
 
-.meeting-card h3{
+.view-card h2{
     color:#00c6ff;
+    margin-bottom:15px;
+}
+
+.view-card p{
     margin-bottom:10px;
-}
-
-.meeting-card p{
-    margin-bottom:8px;
-    line-height:1.5;
     color:#dcdcdc;
+    line-height:1.6;
 }
 
-.meeting-card span{
+.view-card span{
     color:white;
     font-weight:bold;
 }
 
 /* MOBILE */
-@media(max-width:800px){
+@media(max-width:1000px){
+
+    .main-layout{
+        flex-direction:column;
+    }
+
+    .sidebar{
+        width:100%;
+        height:auto;
+    }
 
     .form-grid{
         grid-template-columns:1fr;
     }
-
-    .header{
-        flex-direction:column;
-        align-items:flex-start;
-    }
-
 }
 
 </style>
@@ -210,7 +288,7 @@ body{
 <script>
 
 /* =========================
-   ACCESS PROTECTION
+   ACCESS CONTROL
 ========================= */
 
 if(localStorage.getItem("loggedIn") !== "true"){
@@ -226,82 +304,103 @@ if(localStorage.getItem("loggedIn") !== "true"){
 }
 else{
 
-    loadMeetingPage();
+    loadPage();
 }
 
 /* =========================
    LOAD PAGE
 ========================= */
 
-function loadMeetingPage(){
+function loadPage(){
 
     document.getElementById("app").innerHTML = `
 
-    <div class="container">
+    <div class="main-layout">
 
-        <div class="header">
+        <!-- SIDEBAR -->
 
-            <div>
-                <h1>CTO Meeting Workspace</h1>
-                <p>Professional Meeting Scheduling & Notes Platform</p>
-            </div>
+        <div class="sidebar">
 
-            <button class="back-btn" onclick="goBack()">
-                Back to Dashboard
-            </button>
+            <h2>Meeting Archive</h2>
+
+            <div id="meetingArchive"></div>
 
         </div>
 
-        <!-- FORM -->
+        <!-- CONTENT -->
 
-        <div class="form-grid">
+        <div class="content">
 
-            <div class="input-group">
-                <label>Meeting Title</label>
+            <div class="header">
 
-                <input type="text"
-                id="meetingTitle"
-                placeholder="Enter Meeting Title">
-            </div>
+                <div>
+                    <h1>CTO Meeting Workspace</h1>
+                    <p>Professional Meeting Scheduling & Notes Platform</p>
+                </div>
 
-            <div class="input-group">
-                <label>Meeting Date</label>
+                <button class="back-btn"
+                onclick="goBack()">
 
-                <input type="date"
-                id="meetingDate">
-            </div>
-
-            <div class="input-group full-width">
-                <label>Meeting Purpose</label>
-
-                <textarea id="meetingPurpose"
-                placeholder="Enter purpose of the meeting"></textarea>
-            </div>
-
-            <div class="input-group full-width">
-                <label>Meeting Notes</label>
-
-                <textarea id="meetingNotes"
-                placeholder="Write meeting notes here"></textarea>
-            </div>
-
-            <div class="input-group full-width">
-                <button class="save-btn"
-                onclick="saveMeeting()">
-
-                    SAVE MEETING
+                    Back to Dashboard
                 </button>
+
             </div>
 
-        </div>
+            <!-- FORM -->
 
-        <!-- MEETING DISPLAY -->
+            <div class="form-grid">
 
-        <div class="meeting-section">
+                <div class="input-group">
+                    <label>Meeting Title</label>
 
-            <h2>Saved Meetings</h2>
+                    <input type="text"
+                    id="meetingTitle"
+                    placeholder="Enter Meeting Title">
+                </div>
 
-            <div id="meetingList"></div>
+                <div class="input-group">
+                    <label>Meeting Date</label>
+
+                    <input type="date"
+                    id="meetingDate">
+                </div>
+
+                <div class="input-group full-width">
+                    <label>Meeting Purpose</label>
+
+                    <textarea id="meetingPurpose"
+                    placeholder="Enter purpose of the meeting"></textarea>
+                </div>
+
+                <div class="input-group full-width">
+                    <label>Meeting Notes</label>
+
+                    <textarea id="meetingNotes"
+                    placeholder="Write meeting notes here"></textarea>
+                </div>
+
+                <div class="input-group full-width">
+
+                    <button class="save-btn"
+                    onclick="saveMeeting()">
+
+                        SAVE MEETING
+
+                    </button>
+
+                </div>
+
+            </div>
+
+            <!-- VIEW AREA -->
+
+            <div class="view-area">
+
+                <h2>Meeting Details</h2>
+
+                <div id="meetingView"></div>
+
+            </div>
 
         </div>
 
@@ -332,11 +431,12 @@ function saveMeeting(){
 
     if(title === "" || date === ""){
 
-        alert("Please complete meeting title and date.");
+        alert("Please enter meeting title and date.");
         return;
     }
 
     const meeting = {
+        id:Date.now(),
         title,
         date,
         purpose,
@@ -362,7 +462,7 @@ function saveMeeting(){
 }
 
 /* =========================
-   LOAD MEETINGS
+   LOAD SIDEBAR MEETINGS
 ========================= */
 
 function loadMeetings(){
@@ -376,31 +476,57 @@ function loadMeetings(){
 
         html += `
 
-        <div class="meeting-card">
+        <div class="sidebar-meeting"
+        onclick="viewMeeting(${meeting.id})">
 
             <h3>${meeting.title}</h3>
 
-            <p>
-                <span>Date:</span>
-                ${meeting.date}
-            </p>
-
-            <p>
-                <span>Purpose:</span><br>
-                ${meeting.purpose}
-            </p>
-
-            <p>
-                <span>Notes:</span><br>
-                ${meeting.notes}
-            </p>
+            <p>${meeting.date}</p>
 
         </div>
 
         `;
     });
 
-    document.getElementById("meetingList").innerHTML = html;
+    document.getElementById("meetingArchive").innerHTML = html;
+}
+
+/* =========================
+   VIEW MEETING
+========================= */
+
+function viewMeeting(id){
+
+    let meetings =
+    JSON.parse(localStorage.getItem("ctoMeetings")) || [];
+
+    let meeting =
+    meetings.find(m => m.id === id);
+
+    document.getElementById("meetingView").innerHTML = `
+
+    <div class="view-card">
+
+        <h2>${meeting.title}</h2>
+
+        <p>
+            <span>Date:</span><br>
+            ${meeting.date}
+        </p>
+
+        <p>
+            <span>Purpose:</span><br>
+            ${meeting.purpose}
+        </p>
+
+        <p>
+            <span>Meeting Notes:</span><br>
+            ${meeting.notes}
+        </p>
+
+    </div>
+
+    `;
 }
 
 /* =========================
