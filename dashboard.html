@@ -1,1 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CTO Dashboard</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    overflow:hidden;
+    font-family:Arial, sans-serif;
+
+    background:
+    radial-gradient(circle at top,
+    rgba(25,50,110,0.9),
+    #040814 70%);
+
+    position:relative;
+}
+
+/* STARS */
+
+body::before{
+    content:"";
+    position:absolute;
+    width:100%;
+    height:100%;
+
+    background-image:
+    radial-gradient(white 1px, transparent 1px),
+    radial-gradient(white 1px, transparent 1px),
+    radial-gradient(rgba(255,255,255,0.7) 1px, transparent 1px);
+
+    background-size:
+    120px 120px,
+    180px 180px,
+    250px 250px;
+
+    background-position:
+    10px 20px,
+    80px 120px,
+    40px 60px;
+
+    opacity:0.6;
+}
+
+/* HEADER */
+
+.top-header{
+
+    position:absolute;
+
+    top:20px;
+    left:30px;
+    right:30px;
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    z-index:100;
+}
+
+/* TITLE */
+
+.title-area h1{
+
+    color:white;
+
+    font-size:2rem;
+
+    letter-spacing:2px;
+
+    margin-bottom:5px;
+
+    text-shadow:
+    0 0 10px rgba(255,255,255,0.3);
+}
+
+.title-area h2{
+
+    color:#d4d4d4;
+
+    font-size:1rem;
+
+    font-weight:normal;
+
+    letter-spacing:1px;
+}
+
+/* LOGOUT BUTTON */
+
+.logout-btn{
+
+    padding:12px 24px;
+
+    border:none;
+
+    border-radius:12px;
+
+    background:linear-gradient(
+    135deg,
+    #ff4b2b,
+    #ff416c);
+
+    color:white;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+    transition:0.3s ease;
+
+    box-shadow:
+    0 0 20px rgba(255,65,108,0.3);
+}
+
+.logout-btn:hover{
+
+    transform:scale(1.08);
+
+    box-shadow:
+    0 0 30px rgba(255,65,108,0.5);
+}
+
+/* MOBILE */
+
+@media(max-width:700px){
+
+    .top-header{
+
+        flex-direction:column;
+        gap:10px;
+
+        text-align:center;
+    }
+
+    .title-area h1{
+
+        font-size:1.3rem;
+    }
+
+    .title-area h2{
+
+        font-size:0.7rem;
+    }
+
+    .logout-btn{
+
+        padding:10px 18px;
+        font-size:0.8rem;
+    }
+}
+
+/* DASHBOARD */
+
+.dashboard{
+    position:relative;
+    width:700px;
+    height:700px;
+}
+
+/* PIE */
+
+.pie{
+    width:100%;
+    height:100%;
+    border-radius:50%;
+
+    position:relative;
+
+    background:
+    conic-gradient(
+        #d4af37 0deg 45deg,
+        #c89b2b 45deg 90deg,
+        #b8860b 90deg 135deg,
+        #d4af37 135deg 180deg,
+        #c89b2b 180deg 225deg,
+        #b8860b 225deg 270deg,
+        #d4af37 270deg 315deg,
+        #c89b2b 315deg 360deg
+    );
+
+    box-shadow:
+    0 0 50px rgba(255,215,0,0.2),
+    inset 0 0 50px rgba(0,0,0,0.8);
+
+    transition:0.3s ease;
+}
+
+/* SHAKE EFFECT */
+
+@keyframes shake{
+    0%{transform:rotate(0deg);}
+    25%{transform:rotate(1deg);}
+    50%{transform:rotate(-1deg);}
+    75%{transform:rotate(1deg);}
+    100%{transform:rotate(0deg);}
+}
+
+.dashboard:hover .pie{
+    animation:shake 0.35s ease;
+}
+
+/* CENTER CIRCLE */
+
+.center{
+    position:absolute;
+
+    width:230px;
+    height:230px;
+
+    border-radius:50%;
+
+    background:#071120;
+
+    border:5px solid gold;
+
+    top:50%;
+    left:50%;
+
+    transform:translate(-50%,-50%);
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    text-align:center;
+
+    z-index:10;
+
+    box-shadow:
+    0 0 25px rgba(255,215,0,0.4),
+    inset 0 0 15px rgba(255,215,0,0.2);
+}
+
+.center h1{
+    color:gold;
+    font-size:1.4rem;
+    line-height:1.5;
+}
+
+/* DIVIDER LINES */
+
+.line{
+    position:absolute;
+    width:4px;
+    height:50%;
+    background:#071120;
+    top:0;
+    left:50%;
+    transform-origin:bottom center;
+    z-index:2;
+}
+
+.l1{ transform:translateX(-50%) rotate(0deg); }
+.l2{ transform:translateX(-50%) rotate(45deg); }
+.l3{ transform:translateX(-50%) rotate(90deg); }
+.l4{ transform:translateX(-50%) rotate(135deg); }
+.l5{ transform:translateX(-50%) rotate(180deg); }
+.l6{ transform:translateX(-50%) rotate(225deg); }
+.l7{ transform:translateX(-50%) rotate(270deg); }
+.l8{ transform:translateX(-50%) rotate(315deg); }
+
+/* PIE TEXT AREAS */
+
+.slice{
+    position:absolute;
+
+    width:120px;
+    height:120px;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    text-align:center;
+
+    color:white;
+    font-weight:bold;
+
+    line-height:1.2;
+    font-size:0.85rem;
+
+    z-index:20;
+
+    cursor:pointer;
+
+    transition:0.3s ease;
+
+    border-radius:20px;
+
+    padding:8px;
+}
+
+/* HOVER */
+
+.slice:hover{
+
+    background:rgba(255,215,0,0.95);
+
+    color:black;
+
+    transform:scale(1.08);
+
+    box-shadow:
+    0 0 25px gold,
+    0 0 50px rgba(255,215,0,0.4);
+}
+
+/* POSITIONED INSIDE PIE SHAPES */
+
+/* TOP */
+.s1{
+    top:70px;
+    left:290px;
+}
+
+/* TOP RIGHT */
+.s2{
+    top:145px;
+    right:120px;
+}
+
+/* RIGHT */
+.s3{
+    top:290px;
+    right:55px;
+}
+
+/* BOTTOM RIGHT */
+.s4{
+    bottom:145px;
+    right:120px;
+}
+
+/* BOTTOM */
+.s5{
+    bottom:70px;
+    left:290px;
+}
+
+/* BOTTOM LEFT */
+.s6{
+    bottom:145px;
+    left:120px;
+}
+
+/* LEFT */
+.s7{
+    top:290px;
+    left:55px;
+}
+
+/* TOP LEFT */
+.s8{
+    top:145px;
+    left:120px;
+}
+
+/* MOBILE */
+
+@media(max-width:800px){
+
+    .dashboard{
+        width:95vw;
+        height:95vw;
+    }
+
+    .center{
+        width:33%;
+        height:33%;
+    }
+
+    .center h1{
+        font-size:0.9rem;
+    }
+
+    .slice{
+        width:16%;
+        height:16%;
+        font-size:0.52rem;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- ADD THIS ABOVE THE DASHBOARD DIV -->
+
+<header class="top-header">
+
+    <div class="title-area">
+
+        <h1>
+            ISO YAWI
+        </h1>
+
+        <h2>
+            Chief Technology Officer Workforce Operations Dashboard
+        </h2>
+
+    </div>
+
+    <button class="logout-btn"
+    onclick="logout()">
+
+        Logout
+
+    </button>
+
+</header>
+
+<div class="dashboard">
+
+    <!-- PIE -->
+    <div class="pie"></div>
+
+    <!-- DIVIDER LINES -->
+    <div class="line l1"></div>
+    <div class="line l2"></div>
+    <div class="line l3"></div>
+    <div class="line l4"></div>
+    <div class="line l5"></div>
+    <div class="line l6"></div>
+    <div class="line l7"></div>
+    <div class="line l8"></div>
+
+    <!-- CENTER -->
+    <div class="center">
+
+        <h1>
+            CHIEF<br>
+            TECHNICAL<br>
+            OFFICER<br>
+            DASHBOARD
+        </h1>
+
+    </div>
+
+    <!-- PIE CONTENT INSIDE SHAPES -->
+
+    <div class="slice s1"
+    onclick="openPage('philosophies.html')">
+
+        PHILOSOPHIES<br>
+        VISION & MISSION
+
+    </div>
+
+    <div class="slice s2"
+    onclick="openPage('meeting.html')">
+
+        MEETING &<br>
+        SCHEDULE
+
+    </div>
+
+    <div class="slice s3"
+    onclick="openPage('todo.html')">
+
+        THINGS<br>
+        TO DO
+
+    </div>
+
+    <div class="slice s4"
+    onclick="openPage('budget.html')">
+
+        TECHNICAL BUDGET<br>
+        CAPEX / OPEX
+
+    </div>
+
+    <div class="slice s5"
+    onclick="openPage('technical.html')">
+
+        TECHNICAL<br>
+        PROJECTS & OPERATIONS
+
+    </div>
+
+    <div class="slice s6"
+    onclick="openPage('warehouse.html')">
+
+        WAREHOUSE &<br>
+        LOGISTICS
+
+    </div>
+
+    <div class="slice s7"
+    onclick="openPage('future.html')">
+
+        FUTURE<br>
+        PLANS
+
+    </div>
+
+    <div class="slice s8"
+    onclick="openPage('goals.html')">
+
+        GOALS &<br>
+        TARGETS
+
+    </div>
+
+</div>
+
+<script>
+
+function openPage(page){
+
+    alert("Opening: " + page);
+
+    // Future:
+    // window.location.href = page;
+}
+
+/* ADD THIS INSIDE YOUR SCRIPT */
+
+function logout(){
+
+    window.location.href = "index.html";
+}
+
+</script>
+
+</body>
+</html>
 
