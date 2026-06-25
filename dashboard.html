@@ -242,6 +242,10 @@ if(localStorage.getItem("loggedIn") !== "true"){
    NAVIGATION
 ========================= */
 function openPage(page){
+
+    // set login/session flag before navigating
+    localStorage.setItem("loggedIn", "true");
+
     window.location.href = page;
 }
 
