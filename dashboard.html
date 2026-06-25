@@ -166,6 +166,129 @@ body::before{
 .s7{top:290px;left:55px;}
 .s8{top:145px;left:120px;}
 
+/* =========================
+   MOBILE RESPONSIVE
+========================= */
+
+@media (max-width: 768px){
+
+    body{
+        height:auto;
+        min-height:100vh;
+        overflow-y:auto;
+        padding-top:120px;
+        padding-bottom:30px;
+    }
+
+    .top-header{
+        position:relative;
+        top:auto;
+        left:auto;
+        right:auto;
+        flex-direction:column;
+        gap:15px;
+        text-align:center;
+        margin-bottom:20px;
+    }
+
+    .title-area h1{
+        font-size:1.4rem;
+    }
+
+    .title-area h2{
+        font-size:0.9rem;
+    }
+
+    .dashboard{
+        width:95vw;
+        height:95vw;
+        max-width:450px;
+        max-height:450px;
+        margin:auto;
+    }
+
+    .center{
+        width:120px;
+        height:120px;
+    }
+
+    .center h1{
+        font-size:0.8rem;
+    }
+
+    .slice{
+        width:70px;
+        height:70px;
+        font-size:0.45rem;
+        padding:5px;
+        border-radius:12px;
+    }
+
+    /* Reposition slices for mobile */
+
+    .s1{
+        top:20px;
+        left:50%;
+        transform:translateX(-50%);
+    }
+
+    .s2{
+        top:70px;
+        right:20px;
+    }
+
+    .s3{
+        top:50%;
+        right:0;
+        transform:translateY(-50%);
+    }
+
+    .s4{
+        bottom:70px;
+        right:20px;
+    }
+
+    .s5{
+        bottom:20px;
+        left:50%;
+        transform:translateX(-50%);
+    }
+
+    .s6{
+        bottom:70px;
+        left:20px;
+    }
+
+    .s7{
+        top:50%;
+        left:0;
+        transform:translateY(-50%);
+    }
+
+    .s8{
+        top:70px;
+        left:20px;
+    }
+
+    .logout-btn{
+        width:180px;
+    }
+}
+
+.dashboard{
+    width:min(90vw,700px);
+    height:min(90vw,700px);
+}
+
+.s1{top:8%;left:50%;transform:translateX(-50%);}
+.s2{top:18%;right:12%;}
+.s3{top:42%;right:4%;}
+.s4{bottom:18%;right:12%;}
+.s5{bottom:8%;left:50%;transform:translateX(-50%);}
+.s6{bottom:18%;left:12%;}
+.s7{top:42%;left:4%;}
+.s8{top:18%;left:12%;}
+    
 </style>
 </head>
 
