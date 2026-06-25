@@ -7,6 +7,7 @@
 
 <style>
 
+/* RESET */
 *{
     margin:0;
     padding:0;
@@ -20,11 +21,7 @@ body{
     align-items:center;
     overflow:hidden;
     font-family:Arial, sans-serif;
-
-    background:
-    radial-gradient(circle at top,
-    rgba(25,50,110,0.9),
-    #040814 70%);
+    background:radial-gradient(circle at top,#193266,#040814 70%);
     position:relative;
 }
 
@@ -59,30 +56,36 @@ body::before{
 .title-area h1{
     color:white;
     font-size:2rem;
-    letter-spacing:2px;
     margin-bottom:5px;
 }
 
 .title-area h2{
     color:#d4d4d4;
     font-size:1rem;
-    font-weight:normal;
 }
 
-/* LOGOUT */
-.logout-btn{
-    padding:12px 24px;
+/* BUTTONS */
+.logout-btn,
+.policy-btn{
+    padding:10px 18px;
     border:none;
-    border-radius:12px;
-    background:linear-gradient(135deg,#ff4b2b,#ff416c);
-    color:white;
+    border-radius:10px;
     font-weight:bold;
     cursor:pointer;
-    transition:0.3s ease;
+    transition:0.3s;
 }
 
-.logout-btn:hover{
-    transform:scale(1.05);
+/* logout */
+.logout-btn{
+    background:linear-gradient(135deg,#ff4b2b,#ff416c);
+    color:white;
+}
+
+/* policy */
+.policy-btn{
+    margin-top:10px;
+    background:linear-gradient(135deg,#0ea5e9,#2563eb);
+    color:white;
 }
 
 /* DASHBOARD */
@@ -107,8 +110,6 @@ body::before{
         #d4af37 270deg 315deg,
         #c89b2b 315deg 360deg
     );
-    box-shadow:0 0 50px rgba(255,215,0,0.2),
-               inset 0 0 50px rgba(0,0,0,0.8);
 }
 
 /* CENTER */
@@ -125,7 +126,6 @@ body::before{
     display:flex;
     justify-content:center;
     align-items:center;
-    text-align:center;
 }
 
 .center h1{
@@ -147,7 +147,7 @@ body::before{
     font-size:0.8rem;
     cursor:pointer;
     border-radius:20px;
-    transition:0.3s ease;
+    transition:0.3s;
 }
 
 .slice:hover{
@@ -166,204 +166,102 @@ body::before{
 .s7{top:290px;left:55px;}
 .s8{top:145px;left:120px;}
 
-/* =========================
-   MOBILE RESPONSIVE
-========================= */
+/* ================= MOBILE ================= */
+@media(max-width:768px){
 
-@media (max-width: 768px){
-
-    body{
-        height:auto;
-        min-height:100vh;
-        overflow-y:auto;
-        padding-top:20px;
-        padding-bottom:30px;
-    }
-
-    .top-header{
-        position:relative;
-        top:auto;
-        left:auto;
-        right:auto;
-
-        display:flex;
-        flex-direction:column;
-        justify-content:center;
-        align-items:center;
-
-        text-align:center;
-        width:100%;
-        margin-bottom:30px;
-        gap:12px;
-    }
-
-    .title-area{
-        width:100%;
-        text-align:center;
-        display:flex;
-        flex-direction:column;
-        align-items:center;
-        justify-content:center;
-    }
-
-    .title-area h1{
-        font-size:1.5rem;
-        text-align:center;
-    }
-
-    .title-area h2{
-        font-size:0.9rem;
-        text-align:center;
-        margin-top:5px;
-    }
-
-    .policy-btn{
-        width:260px;
-        margin-top:12px;
-    }
-
-    .logout-btn{
-        width:260px;
-    }
-
-    .dashboard{
-        width:95vw;
-        height:95vw;
-        max-width:450px;
-        max-height:450px;
-        margin:auto;
-    }
-
-    .center{
-        width:120px;
-        height:120px;
-    }
-
-    .center h1{
-        font-size:0.8rem;
-    }
-
-    .slice{
-        width:70px;
-        height:70px;
-        font-size:0.45rem;
-        padding:5px;
-    }
+body{
+    height:auto;
+    min-height:100vh;
+    overflow-y:auto;
+    padding-top:20px;
 }
 
-    /* Reposition slices for mobile */
-
-    .s1{
-        top:20px;
-        left:50%;
-        transform:translateX(-50%);
-    }
-
-    .s2{
-        top:70px;
-        right:20px;
-    }
-
-    .s3{
-        top:50%;
-        right:0;
-        transform:translateY(-50%);
-    }
-
-    .s4{
-        bottom:70px;
-        right:20px;
-    }
-
-    .s5{
-        bottom:20px;
-        left:50%;
-        transform:translateX(-50%);
-    }
-
-    .s6{
-        bottom:70px;
-        left:20px;
-    }
-
-    .s7{
-        top:50%;
-        left:0;
-        transform:translateY(-50%);
-    }
-
-    .s8{
-        top:70px;
-        left:20px;
-    }
-
-    .logout-btn{
-        width:180px;
-    }
+/* HEADER FIX */
+.top-header{
+    position:relative;
+    flex-direction:column;
+    align-items:center;
+    text-align:center;
+    gap:10px;
+    margin-bottom:20px;
 }
 
-.dashboard{
-    width:min(90vw,700px);
-    height:min(90vw,700px);
+.title-area{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
 }
 
-.s1{top:8%;left:50%;transform:translateX(-50%);}
-.s2{top:18%;right:12%;}
-.s3{top:42%;right:4%;}
-.s4{bottom:18%;right:12%;}
-.s5{bottom:8%;left:50%;transform:translateX(-50%);}
-.s6{bottom:18%;left:12%;}
-.s7{top:42%;left:4%;}
-.s8{top:18%;left:12%;}
+.title-area h1{
+    font-size:1.4rem;
+}
 
-.policy-btn{
-    width:220px;
+.title-area h2{
     font-size:0.9rem;
 }
 
-/* POLICY BUTTON */
-.policy-btn{
-    margin-top:12px;
-    padding:10px 18px;
-    border:none;
-    border-radius:10px;
-    background:linear-gradient(135deg,#0ea5e9,#2563eb);
-    color:white;
-    font-weight:bold;
-    cursor:pointer;
-    transition:0.3s ease;
-    box-shadow:0 4px 12px rgba(0,0,0,0.3);
+/* buttons */
+.policy-btn,
+.logout-btn{
+    width:240px;
 }
 
-.policy-btn:hover{
-    transform:translateY(-2px);
-    box-shadow:0 6px 16px rgba(14,165,233,0.4);
+/* dashboard */
+.dashboard{
+    width:95vw;
+    height:95vw;
+    max-width:420px;
+    max-height:420px;
 }
+
+/* center */
+.center{
+    width:120px;
+    height:120px;
+}
+
+.center h1{
+    font-size:0.8rem;
+}
+
+/* slices */
+.slice{
+    width:70px;
+    height:70px;
+    font-size:0.45rem;
+}
+
+/* MOBILE POSITION FIX */
+.s1{top:10%;left:50%;transform:translateX(-50%);}
+.s2{top:18%;right:8%;}
+.s3{top:45%;right:0;}
+.s4{bottom:18%;right:8%;}
+.s5{bottom:10%;left:50%;transform:translateX(-50%);}
+.s6{bottom:18%;left:8%;}
+.s7{top:45%;left:0;}
+.s8{top:18%;left:8%;}
+}
+
 </style>
 </head>
 
 <body>
 
-<!-- HEADER -->
 <header class="top-header">
 
- <div class="title-area">
+<div class="title-area">
     <h1>ISO YAWI</h1>
     <h2>CTO Workforce Operations Dashboard</h2>
 
-    <button class="policy-btn"
-        onclick="openPage('policies.html')">
+    <button class="policy-btn" onclick="openPage('policies.html')">
         📚 Policies & Documentation
     </button>
 </div>
 
-    <button class="logout-btn" onclick="logout()">
-        Logout
-    </button>
+<button class="logout-btn" onclick="logout()">Logout</button>
 
 </header>
 
-<!-- DASHBOARD -->
 <div class="dashboard">
 
     <div class="pie"></div>
@@ -372,64 +270,28 @@ body::before{
         <h1>CTO<br>DASHBOARD</h1>
     </div>
 
-    <!-- SLICES -->
-    <div class="slice s1" onclick="openPage('philosophy.html')">
-        PHILOSOPHIES, MISSION AND VISION
-    </div>
-
-    <div class="slice s2" onclick="openPage('meeting.html')">
-        MEETING
-    </div>
-
-    <div class="slice s3" onclick="openPage('todo.html')">
-        TO DO
-    </div>
-
-    <div class="slice s4" onclick="openPage('budget.html')">
-        BUDGET
-    </div>
-
-    <div class="slice s5" onclick="openPage('technical.html')">
-        PROJECTS
-    </div>
-
-    <div class="slice s6" onclick="openPage('logistics.html')">
-        LOGISTICS
-    </div>
-
-    <div class="slice s7" onclick="openPage('future.html')">
-        FUTURE
-    </div>
-
-    <div class="slice s8" onclick="openPage('goals.html')">
-        GOALS
-    </div>
+    <div class="slice s1" onclick="openPage('philosophy.html')">PHILOSOPHY</div>
+    <div class="slice s2" onclick="openPage('meeting.html')">MEETING</div>
+    <div class="slice s3" onclick="openPage('todo.html')">TO DO</div>
+    <div class="slice s4" onclick="openPage('budget.html')">BUDGET</div>
+    <div class="slice s5" onclick="openPage('technical.html')">PROJECTS</div>
+    <div class="slice s6" onclick="openPage('logistics.html')">LOGISTICS</div>
+    <div class="slice s7" onclick="openPage('future.html')">FUTURE</div>
+    <div class="slice s8" onclick="openPage('goals.html')">GOALS</div>
 
 </div>
 
 <script>
 
-/* =========================
-   AUTH CHECK
-========================= */
 if(localStorage.getItem("loggedIn") !== "true"){
     window.location.href = "index.html";
 }
 
-/* =========================
-   NAVIGATION
-========================= */
 function openPage(page){
-
-    // set login/session flag before navigating
-    localStorage.setItem("loggedIn", "true");
-
+    localStorage.setItem("loggedIn","true");
     window.location.href = page;
 }
 
-/* =========================
-   LOGOUT
-========================= */
 function logout(){
     localStorage.removeItem("loggedIn");
     window.location.href = "index.html";
