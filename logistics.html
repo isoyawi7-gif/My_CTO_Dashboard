@@ -210,17 +210,19 @@ body{
 
 <script>
 
-/* ACCESS CONTROL */
-const accessFromDashboard = sessionStorage.getItem("entry") === "dashboard";
-const isAuthorized = sessionStorage.getItem("auth") === "true";
+/* ACCESS CONTROL (FIXED VERSION) */
 
-if(!isAuthorized || !accessFromDashboard){
+const isAuthorized = localStorage.getItem("loggedIn") === "true";
+
+if(!isAuthorized){
+
     document.getElementById("app").innerHTML = `
         <div class="error-box">
             ACCESS DENIED<br><br>
-            Please open this page through dashboard.
+            Please login from dashboard.
         </div>
     `;
+
 }else{
     loadPage();
 }
