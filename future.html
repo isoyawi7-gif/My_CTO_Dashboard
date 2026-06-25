@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Future Strategic Planning</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,sans-serif;
+}
+
+body{
+    min-height:100vh;
+    background:
+    radial-gradient(circle at top,
+    #2b7cff 0%,
+    #0b1f3a 45%,
+    #020817 100%);
+    color:white;
+    padding:20px;
+}
+
+/* ACCESS ERROR */
+.error-box{
+    width:100%;
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    color:#ffb3b3;
+    font-size:1.2rem;
+}
+
+/* LAYOUT */
+.main-layout{
+    display:flex;
+    gap:20px;
+}
+
+/* SIDEBAR */
+.sidebar{
+    width:320px;
+    background:rgba(255,255,255,0.08);
+    backdrop-filter:blur(18px);
+    border:1px solid rgba(255,255,255,0.15);
+    border-radius:20px;
+    padding:20px;
+    height:90vh;
+    overflow-y:auto;
+}
+
+.sidebar h2{
+    color:#00c6ff;
+    margin-bottom:15px;
+}
+
+/* CARD */
+.plan-card{
+    background:rgba(255,255,255,0.08);
+    border:1px solid rgba(255,255,255,0.1);
+    border-radius:14px;
+    padding:15px;
+    margin-bottom:15px;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+.plan-card:hover{
+    transform:scale(1.02);
+    background:rgba(255,255,255,0.15);
+}
+
+.plan-card h3{
+    color:#00c6ff;
+}
+
+.plan-card p{
+    font-size:0.85rem;
+    color:#d4d4d4;
+}
+
+/* CONTENT */
+.content{
+    flex:1;
+    background:rgba(255,255,255,0.08);
+    backdrop-filter:blur(18px);
+    border:1px solid rgba(255,255,255,0.15);
+    border-radius:20px;
+    padding:25px;
+}
+
+/* HEADER */
+.header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:20px;
+}
+
+.header h1{
+    font-size:2rem;
+}
+
+.header p{
+    color:#d4d4d4;
+}
+
+/* BUTTON */
+.back-btn{
+    padding:12px 20px;
+    border:none;
+    border-radius:12px;
+    background:linear-gradient(135deg,#00c6ff,#0072ff);
+    color:white;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+/* FORM */
+.form-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:20px;
+}
+
+.input-group{
+    display:flex;
+    flex-direction:column;
+}
+
+.input-group label{
+    margin-bottom:8px;
+    color:#ddd;
+}
+
+.input-group input,
+.input-group select,
+.input-group textarea{
+    padding:14px;
+    border:none;
+    outline:none;
+    border-radius:12px;
+    background:rgba(255,255,255,0.12);
+    border:1px solid rgba(255,255,255,0.15);
+    color:white;
+}
+
+.full{
+    grid-column:1 / -1;
+}
+
+/* SAVE */
+.save-btn{
+    width:100%;
+    padding:15px;
+    border:none;
+    border-radius:12px;
+    background:linear-gradient(135deg,#00c853,#009624);
+    color:white;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+/* VIEW */
+.view-card{
+    margin-top:20px;
+    background:rgba(255,255,255,0.08);
+    border:1px solid rgba(255,255,255,0.1);
+    border-radius:15px;
+    padding:20px;
+}
+
+.view-card h2{
+    color:#00c6ff;
+}
+
+/* FOOTER */
+.footer{
+    text-align:center;
+    margin-top:20px;
+    padding:15px;
+    color:#d4d4d4;
+    background:rgba(255,255,255,0.05);
+    border-radius:12px;
+}
+
+/* MOBILE */
+@media(max-width:1000px){
+    .main-layout{flex-direction:column;}
+    .sidebar{width:100%;height:auto;}
+    .form-grid{grid-template-columns:1fr;}
+}
+
+</style>
+</head>
+
+<body>
+
+<div id="app"></div>
+
+<script>
+
+/* =========================
+   ACCESS CONTROL
+========================= */
+
+const isAuthorized = localStorage.getItem("loggedIn") === "true";
+
+if(!isAuthorized){
+    document.getElementById("app").innerHTML = `
+        <div class="error-box">
+            ACCESS DENIED<br><br>
+            Please login from dashboard.
+        </div>
+    `;
+}else{
+    loadPage();
+}
+
+/* =========================
+   LOAD PAGE
+========================= */
+
+function loadPage(){
+
+document.getElementById("app").innerHTML = `
+
+<div class="main-layout">
+
+<!-- SIDEBAR -->
+<div class="sidebar">
+    <h2>Future Roadmap</h2>
+    <div id="archive"></div>
+</div>
+
+<!-- CONTENT -->
+<div class="content">
+
+    <div class="header">
+        <div>
+            <h1>Future Strategic Plans</h1>
+            <p>Short • Mid • Long Term Vision</p>
+        </div>
+
+        <button class="back-btn" onclick="goBack()">
+            Back to Dashboard
+        </button>
+    </div>
+
+    <!-- FORM -->
+    <div class="form-grid">
+
+        <div class="input-group">
+            <label>Timeline</label>
+            <select id="timeline">
+                <option>Short Term</option>
+                <option>Mid Term</option>
+                <option>Long Term</option>
+            </select>
+        </div>
+
+        <div class="input-group">
+            <label>Title</label>
+            <input id="title" type="text">
+        </div>
+
+        <div class="input-group">
+            <label>Category</label>
+            <input id="category" type="text" placeholder="e.g Telecom, AI, Infrastructure">
+        </div>
+
+        <div class="input-group">
+            <label>Budget Estimate</label>
+            <input id="budget" type="text">
+        </div>
+
+        <div class="input-group full">
+            <label>Strategic Description</label>
+            <textarea id="desc"></textarea>
+        </div>
+
+        <div class="input-group full">
+            <button class="save-btn" onclick="savePlan()">
+                SAVE FUTURE PLAN
+            </button>
+        </div>
+
+    </div>
+
+    <!-- VIEW -->
+    <div class="view-card">
+        <h2>Plan Details</h2>
+        <div id="view"></div>
+    </div>
+
+</div>
+
+</div>
+
+<footer class="footer">
+Powered by Iso Yawi • Strategic CTO Planning System
+</footer>
+
+`;
+
+loadData();
+}
+
+/* =========================
+   SAVE
+========================= */
+
+function savePlan(){
+
+let plans = JSON.parse(localStorage.getItem("futurePlans")) || [];
+
+plans.push({
+id:Date.now(),
+timeline:document.getElementById("timeline").value,
+title:document.getElementById("title").value,
+category:document.getElementById("category").value,
+budget:document.getElementById("budget").value,
+desc:document.getElementById("desc").value
+});
+
+localStorage.setItem("futurePlans", JSON.stringify(plans));
+
+loadData();
+alert("Future Plan Saved");
+}
+
+/* =========================
+   LOAD
+========================= */
+
+function loadData(){
+
+let plans = JSON.parse(localStorage.getItem("futurePlans")) || [];
+
+let html = "";
+
+plans.reverse().forEach(p => {
+
+html += `
+<div class="plan-card" onclick="viewPlan(${p.id})">
+<h3>${p.title}</h3>
+<p>${p.timeline} | ${p.category}</p>
+</div>
+`;
+
+});
+
+document.getElementById("archive").innerHTML =
+html || "<p>No plans found</p>";
+}
+
+/* =========================
+   VIEW
+========================= */
+
+function viewPlan(id){
+
+let plans = JSON.parse(localStorage.getItem("futurePlans")) || [];
+
+let p = plans.find(x => x.id == id);
+
+document.getElementById("view").innerHTML = `
+
+<h2>${p.title}</h2>
+<p><b>Timeline:</b> ${p.timeline}</p>
+<p><b>Category:</b> ${p.category}</p>
+<p><b>Budget:</b> ${p.budget}</p>
+<p>${p.desc}</p>
+
+`;
+
+}
+
+/* =========================
+   BACK
+========================= */
+
+function goBack(){
+window.location.href = "dashboard.html";
+}
+
+</script>
+
+</body>
+</html>
