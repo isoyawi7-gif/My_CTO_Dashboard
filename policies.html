@@ -1,1 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CTO Policies & Documentation</title>
 
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, sans-serif;
+}
+
+body{
+    min-height:100vh;
+    background:radial-gradient(circle at top,#1b5cff,#0b1f3a,#020817);
+    color:white;
+    padding:20px;
+}
+
+/* ACCESS DENIED */
+.error-box{
+    width:100%;
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    color:#ffb3b3;
+    font-size:1.2rem;
+}
+
+/* HEADER */
+.header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:20px;
+    flex-wrap:wrap;
+    gap:10px;
+}
+
+.header h1{
+    font-size:1.8rem;
+}
+
+.header p{
+    color:#d4d4d4;
+}
+
+/* BUTTONS */
+.btn{
+    padding:10px 16px;
+    border:none;
+    border-radius:10px;
+    font-weight:bold;
+    cursor:pointer;
+    transition:0.3s;
+    color:white;
+}
+
+.back-btn{
+    background:linear-gradient(135deg,#00c6ff,#0072ff);
+}
+
+.download-btn{
+    background:linear-gradient(135deg,#00c853,#009624);
+}
+
+.btn:hover{
+    transform:scale(1.05);
+}
+
+/* GRID */
+.grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:15px;
+}
+
+/* CARD */
+.card{
+    background:rgba(255,255,255,0.08);
+    border:1px solid rgba(255,255,255,0.12);
+    border-radius:14px;
+    padding:15px;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+.card:hover{
+    transform:scale(1.03);
+    background:rgba(255,255,255,0.15);
+}
+
+.card h3{
+    color:#00c6ff;
+    margin-bottom:8px;
+}
+
+.card p{
+    font-size:0.85rem;
+    color:#d4d4d4;
+}
+
+/* FOOTER */
+.footer{
+    text-align:center;
+    margin-top:25px;
+    padding:15px;
+    color:#ccc;
+    background:rgba(255,255,255,0.05);
+    border-radius:12px;
+}
+
+/* MOBILE */
+@media(max-width:800px){
+    .header{
+        flex-direction:column;
+        text-align:center;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<div id="app"></div>
+
+<script>
+
+const isAuthorized = localStorage.getItem("loggedIn") === "true";
+
+if(!isAuthorized){
+    document.getElementById("app").innerHTML = `
+        <div class="error-box">
+            ACCESS DENIED<br><br>
+            Please login from dashboard.
+        </div>
+    `;
+}else{
+    loadPage();
+}
+
+function loadPage(){
+
+document.getElementById("app").innerHTML = `
+
+<div class="header">
+
+    <div>
+        <h1>CTO Policies & Documentation</h1>
+        <p>Governance • Engineering Standards • Compliance • Operations</p>
+    </div>
+
+    <div style="display:flex; gap:10px; flex-wrap:wrap;">
+        <button class="btn download-btn" onclick="downloadAll()">
+            ⬇ Download All Docs
+        </button>
+
+        <button class="btn back-btn" onclick="goBack()">
+            Back Dashboard
+        </button>
+    </div>
+
+</div>
+
+<div class="grid">
+
+    ${createCard("01_Regulatory_Compliance","NICTA / ITU-T / IEEE compliance frameworks")}
+    ${createCard("02_Network_Operations","NOC procedures, alarms, escalation flows")}
+    ${createCard("03_RF_Engineering","Antenna planning, RF optimization")}
+    ${createCard("04_Core_Network","Core architecture & EPC/5GC systems")}
+    ${createCard("05_Transmission","Microwave, fiber, SDH/OTN")}
+    ${createCard("06_Data_Centre","Server, cloud, virtualization policies")}
+    ${createCard("07_Cyber_Security","Security controls, ISO 27001, threat mgmt")}
+    ${createCard("08_Site_Infrastructure","Tower build, civil works, shelters")}
+    ${createCard("09_Power_Systems","Rectifiers, batteries, solar, gensets")}
+    ${createCard("10_Project_Management","PMO standards, Gantt, delivery lifecycle")}
+    ${createCard("11_Procurement","Vendor selection, tendering process")}
+    ${createCard("12_Asset_Management","Inventory, lifecycle tracking")}
+    ${createCard("13_Operations_Maintenance","O&M SOPs, field maintenance")}
+    ${createCard("14_HSE","Health, Safety & Environment policies")}
+    ${createCard("15_CTO_Dashboard","Executive reporting standards")}
+    ${createCard("16_Standards","Engineering & architecture standards")}
+    ${createCard("17_Drawings","Network diagrams & as-built records")}
+    ${createCard("18_Contracts","SLA, vendor contracts, legal docs")}
+    ${createCard("19_Audits","Internal/external audit frameworks")}
+    ${createCard("20_Training","Skill development & certification plans")}
+
+</div>
+
+<footer class="footer">
+CTO Policy Repository • Central Governance System
+</footer>
+
+`;
+
+}
+
+function createCard(title, desc){
+return `
+<div class="card" onclick="openDoc('${title}')">
+    <h3>${title}</h3>
+    <p>${desc}</p>
+</div>
+`;
+}
+
+function openDoc(section){
+    alert("Opening: " + section + " (you can later link PDFs here)");
+}
+
+function downloadAll(){
+    alert("Future upgrade: This will export all policies as ZIP/PDF bundle");
+}
+
+function goBack(){
+    window.location.href = "dashboard.html";
+}
+
+</script>
+
+</body>
+</html>
